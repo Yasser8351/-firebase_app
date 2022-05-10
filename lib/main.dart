@@ -22,12 +22,14 @@ import 'Home/course_nav.dart';
 import 'SCREENS/course_post_detail.dart';
 
 void main() async {
-  try {
-    WidgetsFlutterBinding.ensureInitialized();
-    await Firebase.initializeApp();
-  } catch (e) {
-    print(e);
-  }
+  // try {
+  //   WidgetsFlutterBinding.ensureInitialized();
+  //   await Firebase.initializeApp();
+  // } catch (e) {
+  //   print(e);
+  // }
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -65,10 +67,10 @@ class MyApp extends StatelessWidget {
           CreateCourse.routeName: (ctx) => CreateCourse(),
           AddPostCourse.routeName: (ctx) => CreateCourse(),
           MainNav.routeName: (ctx) => MainNav(),
-          CourseNav.routeName: (ctx) => CourseNav(),
-          Feed.routeName: (ctx) => CourseNav(),
-          UserHomeFeed.routeName: (ctx) => CourseNav(),
-          EnrolledCourse.routeName: (ctx) => CourseNav(),
+          CourseNav.routeName: (ctx) => const CourseNav(),
+          Feed.routeName: (ctx) => const CourseNav(),
+          UserHomeFeed.routeName: (ctx) => const CourseNav(),
+          EnrolledCourse.routeName: (ctx) => const CourseNav(),
         },
       ),
     );

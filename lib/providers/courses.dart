@@ -1,8 +1,7 @@
-import 'package:firebase/models/course.dart';
-import 'package:firebase/models/user_profile.dart';
+import '/models/course.dart';
+import '/models/user_profile.dart';
 import 'package:path/path.dart' as path;
 import 'package:flutter/foundation.dart';
-import '/models/course.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -82,7 +81,7 @@ class CourseProvider with ChangeNotifier {
       requestMade = true;
 
       Map data, userData;
-      var userSnapShot;
+      DocumentSnapshot userSnapShot;
 
       print('innnnn');
       print(userProfile!.uid);
@@ -124,7 +123,7 @@ class CourseProvider with ChangeNotifier {
         }
         userSnapShot =
             await firestore.collection('users').doc(createdByid).get();
-        userData = userSnapShot.data();
+        userData = userSnapShot.data()!;
         // print('userrrr issssssssss $userData');
 
         tempUser = UserProfile(

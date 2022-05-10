@@ -1,17 +1,10 @@
-import 'dart:convert';
-import 'package:firebase/models/course_post.dart';
-import 'package:firebase/models/user_profile.dart';
+import '/models/course_post.dart';
+import '/models/user_profile.dart';
 
-import '../SCREENS/create_course.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:path/path.dart' as path;
-import 'dart:io';
-import 'dart:convert';
 import 'package:flutter/foundation.dart';
-import '/models/course.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:provider/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -97,14 +90,14 @@ class CoursePostProvider with ChangeNotifier {
       documentSnapshots = snap.docs;
 
       var id, data;
-      var userSnapShot;
+      DocumentSnapshot userSnapShot;
       for (var key in documentSnapshots!) {
         id = key.id;
         data = key.data();
 
         userSnapShot =
             await firestore.collection('users').doc(data['createdBy']).get();
-        userData = userSnapShot.data();
+        userData = userSnapShot.data()!;
         tempUser = UserProfile(
             name: userData['name'],
             gmail: userData['gmail'],
@@ -136,10 +129,10 @@ class CoursePostProvider with ChangeNotifier {
       List<dynamic> enrolledId, String parentId) async {
     try {
       Map userData;
-      var userSnapShot;
+      DocumentSnapshot userSnapShot;
       for (var key in enrolledId) {
         userSnapShot = await firestore.collection('users').doc(key).get();
-        userData = userSnapShot.data();
+        userData = userSnapShot.data()!;
         // print('userrrr issssssssss $userData');
 
         tempUser = UserProfile(

@@ -1,7 +1,4 @@
-import 'dart:convert';
-import 'dart:io';
-import 'dart:convert';
-import 'package:firebase/models/user_profile.dart';
+import '/models/user_profile.dart';
 import 'package:flutter/foundation.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';

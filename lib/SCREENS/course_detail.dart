@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import '/models/user_profile.dart';
 import '/providers/courses.dart';
 import 'package:flutter/material.dart';
@@ -43,40 +41,41 @@ class CourseDetail extends StatelessWidget {
                           image: NetworkImage(course.coverPhoto.toString()),
                           fit: BoxFit.cover)))),
           Container(
-            padding: EdgeInsets.all(20),
+            padding: const EdgeInsets.all(20),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  margin: EdgeInsets.symmetric(vertical: 5),
+                  margin: const EdgeInsets.symmetric(vertical: 5),
                   child: Text(
                     'Course: ${course.title}',
-                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                    style: const TextStyle(
+                        fontSize: 25, fontWeight: FontWeight.bold),
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.symmetric(vertical: 5),
+                  margin: const EdgeInsets.symmetric(vertical: 5),
                   child: Text(
                     'Taught by ${course.userProfile!.name}',
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 22,
                     ),
                   ),
                 ),
                 Container(
-                    margin: EdgeInsets.symmetric(vertical: 5),
-                    child: Text(
+                    margin: const EdgeInsets.symmetric(vertical: 5),
+                    child: const Text(
                       'Description',
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
                     )),
                 Container(
-                    margin: EdgeInsets.symmetric(vertical: 5),
+                    margin: const EdgeInsets.symmetric(vertical: 5),
                     child: Text(
                       course.description.toString(),
-                      style:
-                          TextStyle(fontSize: 22, fontWeight: FontWeight.w300),
+                      style: const TextStyle(
+                          fontSize: 22, fontWeight: FontWeight.w300),
                     )),
                 SizedBox(
                     width: double.infinity,
@@ -84,7 +83,7 @@ class CourseDetail extends StatelessWidget {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10.0)),
                       color: Theme.of(context).primaryColor,
-                      splashColor: Theme.of(context).accentColor,
+                      splashColor: Theme.of(context).colorScheme.secondary,
                       child: const Text(
                         'Enroll',
                         style: TextStyle(color: Colors.white),
