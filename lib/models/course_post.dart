@@ -1,10 +1,8 @@
-import 'dart:io';
-
 import 'package:flutter/foundation.dart';
 import 'user_profile.dart';
 
 class CoursePost {
-  final String? title, description, parentId, postType;
+  String? title = "", description = "", parentId = "", postType = "";
   var video_link;
 
   UserProfile? userProfile;

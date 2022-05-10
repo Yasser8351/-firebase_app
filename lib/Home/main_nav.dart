@@ -1,13 +1,13 @@
-import '/SCREENS/auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../SCREENS/auth.dart';
+import '../providers/auth_p.dart';
+import '../providers/course_post.dart';
+import '../providers/courses.dart';
 import '/SCREENS/feed.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import 'package:provider/provider.dart';
-import '../providers/auth_p.dart';
-import '../providers/courses.dart';
-import '/providers/course_post.dart';
 import '../SCREENS/create_course.dart';
 import '../SCREENS/enrolled_course.dart';
 import '../SCREENS/user_home.dart';
@@ -31,21 +31,22 @@ class _MainNavState extends State<MainNav> {
     super.initState();
     print('init called');
     // Provider.of<UserProvider>(context, listen: false).signOut();
-    Provider.of<UserProvider>(context, listen: false)
-        .getCurrentUser()
-        .then((value) => {
-              setState(() {
-                isLoading = true;
-              }),
-              Provider.of<UserProvider>(context, listen: false)
-                  .getUser()
-                  .then((value) => {
-                        setState(() {
-                          profile_picture = value!.profile_picture;
-                          isLoading = false;
-                        })
-                      })
-            });
+    // Provider.of<UserProvider>(context, listen: false)
+    //     .getCurrentUser()
+    //     .then((value) => {
+    //           setState(() {
+    //             isLoading = true;
+    //           }),
+    //           Provider.of<UserProvider>(context, listen: false)
+    //               .getUser()
+    //               .then((value) => {
+    //                     setState(() {
+    //                       // value = UserProfile(name: "", gmail: "", profile_picture: profile_picture, uid: "");
+    //                       profile_picture = value!.profile_picture;
+    //                       isLoading = false;
+    //                     })
+    //                   })
+    //         });
   }
 
   @override
@@ -53,54 +54,47 @@ class _MainNavState extends State<MainNav> {
     return isLoading == false
         ? Scaffold(
             appBar: AppBar(
-                title: Text(appBarTitles[pageIndex]),
-                backgroundColor: Theme.of(context).primaryColor,
-                actions: <Widget>[
-                  pageIndex == 2
-                      ? IconButton(
-                          icon: const Icon(
-                              IconData(0xe8a6, fontFamily: 'MaterialIcons')),
-                          tooltip: 'User',
-                          onPressed: () async {
-                            await Provider.of<UserProvider>(context,
-                                    listen: false)
-                                .signOut();
-                            Provider.of<CoursePostProvider>(context,
-                                    listen: false)
-                                .clearCoursePostProvider();
-                            Provider.of<CourseProvider>(context, listen: false)
-                                .clearCourseProvider();
-                            Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => Auth(),
-                                ));
-                          },
-                        )
-                      : Container()
-                ]),
+              // title: Text(appBarTitles[pageIndex]),
+              backgroundColor: Theme.of(context).primaryColor,
+              actions: <Widget>[
+                pageIndex == 2
+                    ? IconButton(
+                        icon: const Icon(
+                            IconData(0xe8a6, fontFamily: 'MaterialIcons')),
+                        tooltip: 'User',
+                        onPressed: () async {
+                          await Provider.of<UserProvider>(context,
+                                  listen: false)
+                              .signOut();
+                          Provider.of<CoursePostProvider>(context,
+                                  listen: false)
+                              .clearCoursePostProvider();
+                          Provider.of<CourseProvider>(context, listen: false)
+                              .clearCourseProvider();
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Auth(),
+                              ));
+                        },
+                      )
+                    : Container()
+              ],
+            ),
             body: pages[pageIndex],
             bottomNavigationBar: BottomNavigationBar(
               backgroundColor: Theme.of(context).primaryColor,
-              items: [
+              items: const [
                 BottomNavigationBarItem(
-                    icon: Icon(
-                      IconData(0xe871, fontFamily: 'MaterialIcons'),
-                      color: Colors.white,
-                    ),
-                    label: "Dashboard"),
+                    icon: Icon(Icons.dashboard), label: "Dashboard"),
                 BottomNavigationBarItem(
-                    icon: Icon(
-                      IconData(0xe039, fontFamily: 'MaterialIcons'),
-                      color: Colors.white,
-                    ),
-                    label: "Enrolled"),
+                    icon: Icon(Icons.add), label: "Enrolled"),
                 BottomNavigationBarItem(
                   icon: CircleAvatar(
                     radius: 15,
                     foregroundColor: Colors.cyan,
-                    backgroundImage: NetworkImage(profile_picture),
                   ),
+                  //icon: Icon(Icons.add),
                   label: "Your courses",
                 ),
               ],
@@ -117,15 +111,15 @@ class _MainNavState extends State<MainNav> {
                     onPressed: () {
                       Navigator.pushNamed(context, CreateCourse.routeName);
                     },
-                    child: Icon(
+                    child: const Icon(
                       Icons.add,
                       color: Colors.white,
                       size: 30,
                     ),
                     backgroundColor: Theme.of(context).primaryColor,
                   )
-                : null,
+                : const Text(""),
           )
-        : CircularProgressIndicator();
+        : const CircularProgressIndicator();
   }
 }
