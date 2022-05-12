@@ -34,31 +34,47 @@ class _UploadVideoState extends State<UploadVideo> {
   }
 
   Future uplaodFile() async {
-    final path = "file/${pickedFile!.name}";
-    final file = File(pickedFile!.path!);
-
-    final ref = FirebaseStorage.instance.ref().child(path);
-    uploadTask = ref.putFile(file);
-    final snapshot = await uploadTask!.whenComplete(() => {});
-    final urlDownload = snapshot.ref.getDownloadURL();
-    setState(() {
-      isLoading = true;
-    });
     try {
-      await FirebaseFirestore.instance
-          .collection("doctor")
-          .doc(urlDownload.toString())
-          .set(
-        {
-          "name_video": _videoNameController.text,
-          "descripstion_video": _descripstionController.text,
-          "video_url": urlDownload,
-        },
-      );
+      setState(() {
+        isLoading = true;
+      });
+      final isValid = _form.currentState!.validate();
+      if (!isValid) {
+        return null;
+      }
+      _form.currentState!.save();
+      final path = "file/${pickedFile!.name}";
+      final file = File(pickedFile!.path!);
+
+      final ref = FirebaseStorage.instance.ref().child(path);
+      uploadTask = ref.putFile(file);
+      final snapshot = await uploadTask!.whenComplete(() => {});
+      var url = "";
+
+      final urlDownload = snapshot.ref.getDownloadURL().then((value) {
+        FirebaseFirestore.instance
+            .collection("videos")
+            .doc(DateTime.now().toString() + url.toString())
+            .set(
+          {
+            "name_video": _videoNameController.text,
+            "descripstion_video": _descripstionController.text,
+            "video_url": value.toString(),
+            "time": DateTime.now()
+          },
+        );
+        setState(() {
+          log(value);
+
+          value = url;
+        });
+      });
+
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text(" تم رفع الفيديو")));
       setState(() {
         isLoading = false;
       });
-      log(urlDownload.toString());
     } catch (error) {
       setState(() {
         isLoading = false;
@@ -152,11 +168,18 @@ class _UploadVideoState extends State<UploadVideo> {
                 ),
                 const SizedBox(height: 30),
                 pickedFile != null
-                    ? Container(
-                        child: Image(image: FileImage(File(pickedFile!.path!))),
-                        color: Colors.grey,
-                        height: 200,
-                        width: double.infinity,
+                    ? GestureDetector(
+                        onTap: () {
+                          selectFile();
+                        },
+                        child: Container(
+                          child:
+                              const Center(child: Text("تم ارفاق الملف بنجاح")),
+                          // Image(image: FileImage(File(pickedFile!.path!))),
+                          color: Colors.grey,
+                          height: 200,
+                          width: double.infinity,
+                        ),
                       )
                     : const SizedBox(
                         height: 200,
@@ -167,9 +190,9 @@ class _UploadVideoState extends State<UploadVideo> {
                         ),
                       ),
                 ElevatedButton(
-                    onPressed: selectFile, child: const Text("Select Image")),
+                    onPressed: selectFile, child: const Text("Select File")),
                 ElevatedButton(
-                    onPressed: uplaodFile, child: const Text("Upload Image")),
+                    onPressed: uplaodFile, child: const Text("Upload File")),
               ],
             ),
     );

@@ -21,7 +21,7 @@ class MainNav extends StatefulWidget {
 
 class _MainNavState extends State<MainNav> {
   int pageIndex = 0;
-  List<Widget> pages = [Feed(), EnrolledCourse(), UserHomeFeed()];
+  List<Widget> pages = [Feed(), EnrolledCourse(), const UploadVideo()];
   var appBarTitles = ['Dashboard', 'Enrolled courses', 'Your courses'];
   final FirebaseAuth _auth = FirebaseAuth.instance;
   var profile_picture;
