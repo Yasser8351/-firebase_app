@@ -57,7 +57,7 @@ class MyApp extends StatelessWidget {
               .copyWith(secondary: Colors.deepPurpleAccent),
         ),
         //  home: const UploadVideo(),
-        home: Loading(),
+        home: MainNav(),
         routes: {
           Loading.routeName: (ctx) => Loading(),
           Auth.routeName: (ctx) => Auth(),

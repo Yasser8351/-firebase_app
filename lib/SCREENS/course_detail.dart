@@ -1,29 +1,19 @@
-import '/models/user_profile.dart';
-import '/providers/courses.dart';
 import 'package:flutter/material.dart';
-import 'create_course.dart';
-import '/models/course.dart';
-import 'package:provider/provider.dart';
 
 class CourseDetail extends StatelessWidget {
   static const routeName = '/courseDetail';
+  final title;
+  final description;
+
+  const CourseDetail({Key? key, this.title, this.description})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Course course = Course(
-        id: "",
-        title: "",
-        description: "",
-        coverPhoto: "",
-        enrolled: false,
-        isAdmin: false,
-        enrolledId: [],
-        userProfile:
-            UserProfile(name: "", gmail: "", profile_picture: "", uid: ""));
     //Course course = ModalRoute.of(context).settings.arguments;
     return Scaffold(
       appBar: AppBar(
-        title: Text(course.title.toString()),
+        title: const Text(""),
         backgroundColor: Theme.of(context).primaryColor,
       ),
       body: SingleChildScrollView(
@@ -32,14 +22,13 @@ class CourseDetail extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Hero(
-              tag: course.id.toString(),
+              tag: "",
               child: Container(
-                  width: double.infinity,
-                  height: 300,
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: NetworkImage(course.coverPhoto.toString()),
-                          fit: BoxFit.cover)))),
+                width: double.infinity,
+                height: 300,
+                child: Image.asset("assets/download.jpg"),
+                decoration: const BoxDecoration(),
+              )),
           Container(
             padding: const EdgeInsets.all(20),
             child: Column(
@@ -49,16 +38,16 @@ class CourseDetail extends StatelessWidget {
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 5),
                   child: Text(
-                    'Course: ${course.title}',
+                    'Course: $title',
                     style: const TextStyle(
                         fontSize: 25, fontWeight: FontWeight.bold),
                   ),
                 ),
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 5),
-                  child: Text(
-                    'Taught by ${course.userProfile!.name}',
-                    style: const TextStyle(
+                  child: const Text(
+                    'Taught by Yasser',
+                    style: TextStyle(
                       fontSize: 22,
                     ),
                   ),
@@ -73,7 +62,7 @@ class CourseDetail extends StatelessWidget {
                 Container(
                     margin: const EdgeInsets.symmetric(vertical: 5),
                     child: Text(
-                      course.description.toString(),
+                      description.toString(),
                       style: const TextStyle(
                           fontSize: 22, fontWeight: FontWeight.w300),
                     )),
@@ -90,8 +79,8 @@ class CourseDetail extends StatelessWidget {
                       ),
                       textColor: Colors.blue,
                       onPressed: () {
-                        Provider.of<CourseProvider>(context, listen: false)
-                            .enrollUser(course);
+                        // Provider.of<CourseProvider>(context, listen: false)
+                        //     .enrollUser(course);
                       },
                     ))
               ],

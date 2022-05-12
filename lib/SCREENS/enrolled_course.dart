@@ -23,14 +23,8 @@ class _enrolledCourseState extends State<EnrolledCourse> {
     final course = Provider.of<CourseProvider>(context);
     final courseFeed = course.enrolledCourse;
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          "",
-          style: TextStyle(color: Colors.white, fontSize: 12),
-        ),
-      ),
-      body: Container(
-        color: Theme.of(context).colorScheme.primary,
+      body: SizedBox(
+        height: double.infinity,
         child: StreamBuilder(
           stream: FirebaseFirestore.instance.collection("videos").snapshots(),
           builder: (ctx, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -38,30 +32,34 @@ class _enrolledCourseState extends State<EnrolledCourse> {
               return const Center(child: CircularProgressIndicator());
             } else {
               final data = snapshot.data!.docs;
-              return ListView.builder(
-                itemCount: data.length,
-                itemBuilder: (ctx, index) {
-                  return GestureDetector(
-                    onTap: () {},
-                    child: ListTile(
-                      title: Text(
-                        data[index]["name_video"],
-                        style:
-                            const TextStyle(color: Colors.white, fontSize: 20),
+              return SizedBox(
+                height: 777,
+                child: ListView.builder(
+                  itemCount: data.length,
+                  itemBuilder: (ctx, index) {
+                    return GestureDetector(
+                      onTap: () {},
+                      child: ListTile(
+                        title: Text(
+                          data[index]["name_video"],
+                          style: const TextStyle(
+                              color: Colors.black, fontSize: 20),
+                        ),
+                        subtitle: Text(
+                          data[index]["descripstion_video"],
+                          style: const TextStyle(
+                              color: Colors.black, fontSize: 12),
+                        ),
+                        leading: Image.asset("assets/download.jpg"),
+                        // leading: Text(
+                        //   data[index]["time"].toString(),
+                        //   style: const TextStyle(
+                        //       color: Colors.white, fontSize: 12),
+                        // ),
                       ),
-                      subtitle: Text(
-                        data[index]["descripstion_video"],
-                        style:
-                            const TextStyle(color: Colors.white, fontSize: 12),
-                      ),
-                      leading: Text(
-                        data[index]["time"],
-                        style:
-                            const TextStyle(color: Colors.white, fontSize: 12),
-                      ),
-                    ),
-                  );
-                },
+                    );
+                  },
+                ),
               );
             }
           },
