@@ -3,7 +3,6 @@ import '/providers/course_post.dart';
 import 'Home/main_nav.dart';
 import 'package:flutter/material.dart';
 
-import 'Home/main_nav.dart';
 import 'SCREENS/add_post_in_course.dart';
 import 'SCREENS/auth.dart';
 import 'SCREENS/feed.dart';
@@ -18,9 +17,7 @@ import 'providers/auth_p.dart';
 import 'providers/courses.dart';
 import 'SCREENS/loading.dart';
 import 'SCREENS/course_detail.dart';
-import 'Home/main_nav.dart';
 import 'Home/course_nav.dart';
-import 'SCREENS/course_post_detail.dart';
 
 void main() async {
   // try {

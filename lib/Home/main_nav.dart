@@ -1,3 +1,4 @@
+import 'package:firebase_app/SCREENS/upload_video.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -8,7 +9,6 @@ import '../providers/courses.dart';
 import '/SCREENS/feed.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../SCREENS/create_course.dart';
 import '../SCREENS/enrolled_course.dart';
 import '../SCREENS/user_home.dart';
 
@@ -93,6 +93,7 @@ class _MainNavState extends State<MainNav> {
                   icon: CircleAvatar(
                     radius: 15,
                     foregroundColor: Colors.cyan,
+                    child: Text("Y"),
                   ),
                   //icon: Icon(Icons.add),
                   label: "Your courses",
@@ -109,7 +110,11 @@ class _MainNavState extends State<MainNav> {
             floatingActionButton: pageIndex == 2
                 ? FloatingActionButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, CreateCourse.routeName);
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: ((context) {
+                        return const UploadVideo();
+                      })));
+                      // Navigator.pushNamed(context, CreateCourse.routeName);
                     },
                     child: const Icon(
                       Icons.add,

@@ -48,7 +48,7 @@ class _LoadingState extends State<Loading> {
       width: double.infinity,
       height: double.infinity,
       color: Colors.white,
-      child: Center(
+      child: const Center(
         child: CircularProgressIndicator(),
       ),
     ));
