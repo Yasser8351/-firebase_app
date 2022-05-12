@@ -27,7 +27,7 @@ class CourseProvider with ChangeNotifier {
       Reference storageReference = FirebaseStorage.instance
           .ref()
           .child("course")
-          .child(userProfile!.uid)
+          .child("userProfile!.uid")
           .child(fileName);
       // final StorageReference storageReference = _storage
       //     .ref()

@@ -9,6 +9,7 @@ import 'SCREENS/auth.dart';
 import 'SCREENS/feed.dart';
 import 'SCREENS/create_course.dart';
 import 'SCREENS/enrolled_course.dart';
+import 'SCREENS/upload_video.dart';
 import 'SCREENS/user_home.dart';
 
 import 'package:firebase_core/firebase_core.dart';
@@ -59,7 +60,8 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.indigo)
               .copyWith(secondary: Colors.deepPurpleAccent),
         ),
-        home: Loading(),
+        home: const UploadVideo(),
+        // home: Loading(),
         routes: {
           Loading.routeName: (ctx) => Loading(),
           Auth.routeName: (ctx) => Auth(),
