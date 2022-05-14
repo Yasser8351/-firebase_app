@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:firebase_app/Home/main_nav.dart';
+import 'package:firebase_app/user_share_pref.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -147,14 +148,17 @@ class _LoginState extends State<Login> {
   }
 
   Future<void> loginUser(String name, String password) async {
+    var pref = SharedPrefUser();
     try {
       setState(() {
         isLoading = true;
       });
       await auth.signInWithEmailAndPassword(email: name, password: password);
       if (widget.typeAccount == 1) {
+        pref.saveId(1);
         Navigator.of(context).pushNamed(TabScreenStudent.routeName);
       } else {
+        pref.saveId(0);
         Navigator.of(context).pushNamed(MainNav.routeName);
       }
     } on FirebaseAuthException catch (error) {

@@ -45,6 +45,8 @@ dependencies:
   flutter_icons: ^1.1.0
   image_picker: ^0.8.4+4
   file_picker: ^3.0.4
+  shared_preferences: ^2.0.5
+  easy_splash_screen: ^1.0.3
 
 dev_dependencies:
   flutter_test:
