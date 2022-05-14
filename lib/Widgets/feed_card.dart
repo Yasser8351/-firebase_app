@@ -1,5 +1,5 @@
+import 'package:firebase_app/SCREENS/teacher/course_detail.dart';
 import 'package:flutter/material.dart';
-import '../SCREENS/course_detail.dart';
 import '../Home/course_nav.dart';
 import '/models/course.dart';
 import 'package:provider/provider.dart';
@@ -74,19 +74,20 @@ class FeedCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(screenArguments!.title.toString(),
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                      style: const TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.bold)),
                   Text('Taught by ${screenArguments!.userProfile!.name}',
                       textAlign: TextAlign.left,
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.w400)),
+                      style: const TextStyle(
+                          fontSize: 18, fontWeight: FontWeight.w400)),
                   screenArguments!.enrolled == false
                       ? Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: <Widget>[
                             Container(
-                                margin: EdgeInsets.symmetric(horizontal: 10),
+                                margin:
+                                    const EdgeInsets.symmetric(horizontal: 10),
                                 child: OutlineButton(
                                   child: const Text(
                                     'View Course',
@@ -118,7 +119,8 @@ class FeedCard extends StatelessWidget {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10.0)),
                             color: Theme.of(context).primaryColor,
-                            splashColor: Theme.of(context).accentColor,
+                            splashColor:
+                                Theme.of(context).colorScheme.secondary,
                             child: const Text(
                               'Resume your course',
                               style: TextStyle(color: Colors.white),

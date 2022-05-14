@@ -1,6 +1,7 @@
+import 'package:firebase_app/SCREENS/teacher/course_post_detail.dart';
+
 import '/models/course_post.dart';
 import 'package:flutter/material.dart';
-import '../SCREENS/course_post_detail.dart';
 
 class CoursePostWidget extends StatelessWidget {
   CoursePost? coursePost;
@@ -17,7 +18,7 @@ class CoursePostWidget extends StatelessWidget {
     print(index);
     return Card(
         elevation: 5,
-        margin: EdgeInsets.all(10),
+        margin: const EdgeInsets.all(10),
         child: InkWell(
           splashColor: Colors.blue.withAlpha(30),
           onTap: () {
@@ -30,16 +31,16 @@ class CoursePostWidget extends StatelessWidget {
           child: Container(
             width: double.infinity,
             height: 50,
-            padding: EdgeInsets.symmetric(horizontal: 30),
+            padding: const EdgeInsets.symmetric(horizontal: 30),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text('#$index',
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 20,
                     )),
                 Text(coursePost!.title.toString(),
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 20,
                     )),
               ],

@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_app/SCREENS/course_detail.dart';
+import 'package:firebase_app/SCREENS/teacher/course_detail.dart';
 
 import '/providers/courses.dart';
 import 'package:flutter/material.dart';

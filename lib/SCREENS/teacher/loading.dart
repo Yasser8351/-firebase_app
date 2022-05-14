@@ -1,9 +1,10 @@
 import '/Home/main_nav.dart';
 import '/providers/auth_p.dart';
 
-import '/SCREENS/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import 'auth.dart';
 
 class Loading extends StatefulWidget {
   static const routeName = '/loading';

@@ -1,21 +1,25 @@
+import 'package:firebase_app/SCREENS/student/login.dart';
+import 'package:firebase_app/SCREENS/student/register.dart';
+import 'package:firebase_app/SCREENS/student/tab_screen_student.dart';
+import 'package:firebase_app/SCREENS/teacher/course_detail.dart';
+import 'package:firebase_app/SCREENS/teacher/enrolled_course.dart';
+import 'package:firebase_app/SCREENS/teacher/feed.dart';
+
 import '/providers/course_post.dart';
 
 import 'Home/main_nav.dart';
 import 'package:flutter/material.dart';
 
-import 'SCREENS/add_post_in_course.dart';
-import 'SCREENS/auth.dart';
-import 'SCREENS/feed.dart';
-import 'SCREENS/create_course.dart';
-import 'SCREENS/enrolled_course.dart';
-import 'SCREENS/user_home.dart';
+import 'SCREENS/teacher/add_post_in_course.dart';
+import 'SCREENS/teacher/auth.dart';
+import 'SCREENS/teacher/create_course.dart';
+import 'SCREENS/teacher/loading.dart';
+import 'SCREENS/teacher/user_home.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 import 'providers/auth_p.dart';
 import 'providers/courses.dart';
-import 'SCREENS/loading.dart';
-import 'SCREENS/course_detail.dart';
 import 'Home/course_nav.dart';
 
 void main() async {
@@ -52,19 +56,23 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'Flutter Demo',
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.indigo)
               .copyWith(secondary: Colors.deepPurpleAccent),
         ),
         //  home: const UploadVideo(),
-        home: MainNav(),
+        home: Auth(),
         routes: {
           Loading.routeName: (ctx) => Loading(),
           Auth.routeName: (ctx) => Auth(),
-          CourseDetail.routeName: (ctx) => CourseDetail(),
+          CourseDetail.routeName: (ctx) => const CourseDetail(),
           CreateCourse.routeName: (ctx) => CreateCourse(),
           AddPostCourse.routeName: (ctx) => CreateCourse(),
-          MainNav.routeName: (ctx) => MainNav(),
+          MainNav.routeName: (ctx) => const MainNav(),
+          Login.routeName: (ctx) => const Login(),
+          TabScreenStudent.routeName: (ctx) => const TabScreenStudent(),
+          Register.routeName: (ctx) => const Register(),
           CourseNav.routeName: (ctx) => const CourseNav(),
           Feed.routeName: (ctx) => const CourseNav(),
           UserHomeFeed.routeName: (ctx) => const CourseNav(),

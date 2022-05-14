@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import '../SCREENS/course_detail.dart';
-import '../SCREENS/course_home.dart';
 import '../Home/course_nav.dart';
 import '/models/course.dart';
 // class FeedCard extends StatefulWidget {
@@ -68,22 +66,22 @@ class AdminCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(screenArguments!.title.toString(),
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                      style: const TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.bold)),
                   Text(
                       screenArguments!.enrolledId!.isNotEmpty
                           ? '${screenArguments!.enrolledId!.length} are enrolled'
                           : 'Someone will definetly enroll',
                       textAlign: TextAlign.left,
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.w400)),
+                      style: const TextStyle(
+                          fontSize: 18, fontWeight: FontWeight.w400)),
                   SizedBox(
                       width: double.infinity,
                       child: RaisedButton(
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10.0)),
                         color: Theme.of(context).primaryColor,
-                        splashColor: Theme.of(context).accentColor,
+                        splashColor: Theme.of(context).colorScheme.secondary,
                         child: const Text(
                           'Go to your course',
                           style: TextStyle(color: Colors.white),

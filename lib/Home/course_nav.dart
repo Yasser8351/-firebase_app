@@ -1,10 +1,10 @@
-import '/SCREENS/add_post_in_course.dart';
-import '/SCREENS/course_home.dart';
-import '/SCREENS/enrolled_user.dart';
+import 'package:firebase_app/SCREENS/teacher/add_post_in_course.dart';
+import 'package:firebase_app/SCREENS/teacher/course_home.dart';
+import 'package:firebase_app/SCREENS/teacher/enrolled_user.dart';
+import 'package:firebase_app/SCREENS/teacher/information.dart';
 import 'package:flutter/material.dart';
 
 import '/models/course.dart';
-import '/SCREENS/information.dart';
 
 class CourseNav extends StatefulWidget {
   @override
@@ -36,7 +36,7 @@ class _CourseNavState extends State<CourseNav> {
     isAdmin = course!.isAdmin!;
     List<dynamic>? enrolledId = course.enrolledId;
     String? parentId = course.id;
-    var appBarTitles;
+    List<String?> appBarTitles;
     if (isAdmin) {
       pages = [
         CoursePosts(parentId),
@@ -64,7 +64,7 @@ class _CourseNavState extends State<CourseNav> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(appBarTitles[pageIndex]),
+        // title: Text(appBarTitles![pageIndex]),
         backgroundColor: Theme.of(context).primaryColor,
       ),
       body: pages![pageIndex],

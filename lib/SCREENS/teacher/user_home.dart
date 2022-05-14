@@ -1,8 +1,7 @@
+import '../../Widgets/admin_card.dart';
 import '/providers/courses.dart';
 import 'package:flutter/material.dart';
-import 'create_course.dart';
 import 'package:provider/provider.dart';
-import '../Widgets/admin_card.dart';
 
 class UserHomeFeed extends StatefulWidget {
   @override
@@ -38,7 +37,7 @@ class _userHomeFeedState extends State<UserHomeFeed> {
                   return (AdminCard(courseFeed[i]));
                 }),
           )
-        : Center(
+        : const Center(
             child: Text(
               "Nothing to show",
               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
