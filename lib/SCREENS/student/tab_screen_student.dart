@@ -1,3 +1,4 @@
+import 'package:firebase_app/user_share_pref.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -64,6 +65,7 @@ class _TabScreenStudentState extends State<TabScreenStudent> {
                   actions: [
                     IconButton(
                         onPressed: () {
+                          SharedPrefUser().logout();
                           auth.signOut();
                           Navigator.of(context).pushNamed(Login.routeName);
                         },

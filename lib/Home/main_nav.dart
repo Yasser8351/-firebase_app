@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../SCREENS/student/login.dart';
+import '../user_share_pref.dart';
 
 class MainNav extends StatefulWidget {
   const MainNav({Key? key}) : super(key: key);
@@ -66,6 +67,8 @@ class _MainNavState extends State<MainNav> {
                     actions: [
                       IconButton(
                           onPressed: () {
+                            SharedPrefUser().logout();
+
                             auth.signOut();
                             Navigator.of(context).pushNamed(Login.routeName);
                           },
