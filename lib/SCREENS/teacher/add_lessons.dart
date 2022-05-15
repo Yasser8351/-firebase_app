@@ -6,14 +6,16 @@ import 'package:file_picker/file_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 
-class UploadVideo extends StatefulWidget {
-  const UploadVideo({Key? key}) : super(key: key);
+class AddLessons extends StatefulWidget {
+  const AddLessons({Key? key, required this.idCourse}) : super(key: key);
+  static const routeName = "add_les";
+  final idCourse;
 
   @override
-  State<UploadVideo> createState() => _UploadVideoState();
+  State<AddLessons> createState() => _AddLessonsState();
 }
 
-class _UploadVideoState extends State<UploadVideo> {
+class _AddLessonsState extends State<AddLessons> {
   PlatformFile? pickedFile;
   UploadTask? uploadTask;
   final _form = GlobalKey<FormState>();
@@ -53,13 +55,13 @@ class _UploadVideoState extends State<UploadVideo> {
 
       final urlDownload = snapshot.ref.getDownloadURL().then((value) {
         FirebaseFirestore.instance
-            .collection("videos")
+            .collection("lessons")
             .doc(DateTime.now().toString() + url.toString())
             .set(
           {
-            "name_video": _videoNameController.text,
-            "descripstion_video": _descripstionController.text,
-            "video_url": value.toString(),
+            "name_lessons": _videoNameController.text,
+            "descripstion_lessons": _descripstionController.text,
+            "lessons_url": value.toString(),
             "time": DateTime.now()
           },
         );
@@ -71,7 +73,7 @@ class _UploadVideoState extends State<UploadVideo> {
       });
 
       ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text(" تم رفع الفيديو")));
+          .showSnackBar(const SnackBar(content: Text(" تم رفع الدرس")));
       setState(() {
         isLoading = false;
       });
@@ -80,7 +82,7 @@ class _UploadVideoState extends State<UploadVideo> {
         isLoading = false;
       });
       ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("حدث خطأ اثناء رفع الفيديو")));
+          const SnackBar(content: Text("حدث خطأ اثناء رفع الدرس")));
     }
 
     /*
@@ -113,7 +115,7 @@ class _UploadVideoState extends State<UploadVideo> {
                               controller: _videoNameController,
                               cursorColor: Colors.white,
                               decoration: InputDecoration(
-                                  labelText: 'title',
+                                  labelText: 'title lessons',
                                   focusColor: Colors.white,
                                   hoverColor: Colors.white,
                                   fillColor: Colors.white,
@@ -128,7 +130,7 @@ class _UploadVideoState extends State<UploadVideo> {
                               },
                               validator: (value) {
                                 if (value!.isEmpty) {
-                                  return 'يجب ادخال عنوان الفيديو ';
+                                  return 'يجب ادخال عنوان الدرس ';
                                 }
                                 return null;
                               },
@@ -142,7 +144,7 @@ class _UploadVideoState extends State<UploadVideo> {
                               textAlign: TextAlign.left,
                               controller: _descripstionController,
                               decoration: InputDecoration(
-                                  labelText: 'decoration',
+                                  labelText: 'decoration lessons',
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(4),
                                   )),

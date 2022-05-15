@@ -66,23 +66,10 @@ class CourseDetail extends StatelessWidget {
                       style: const TextStyle(
                           fontSize: 22, fontWeight: FontWeight.w300),
                     )),
-                SizedBox(
-                    width: double.infinity,
-                    child: RaisedButton(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0)),
-                      color: Theme.of(context).primaryColor,
-                      splashColor: Theme.of(context).colorScheme.secondary,
-                      child: const Text(
-                        'Enroll',
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      textColor: Colors.blue,
-                      onPressed: () {
-                        // Provider.of<CourseProvider>(context, listen: false)
-                        //     .enrollUser(course);
-                      },
-                    ))
+                const SizedBox(
+                  width: double.infinity,
+                  // child:
+                )
               ],
             ),
           )

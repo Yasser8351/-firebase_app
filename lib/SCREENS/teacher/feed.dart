@@ -5,6 +5,8 @@ import '/providers/courses.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'add_lessons.dart';
+
 class Feed extends StatefulWidget {
   @override
   static const routeName = '/feed';
@@ -110,7 +112,6 @@ class _FeedState extends State<Feed> {
                                     padding: EdgeInsets.all(12.0),
                                     child: Text(
                                       "view course",
-                                      //data[index]["descripstion_video"],
                                       style: TextStyle(
                                           color: Colors.black, fontSize: 14),
                                     ),
@@ -118,15 +119,23 @@ class _FeedState extends State<Feed> {
                                 ),
                               ),
                               const SizedBox(width: 15),
-                              const Card(
-                                child: Padding(
-                                  padding: EdgeInsets.all(12.0),
-                                  child: Text(
-                                    "Enroll",
-                                    //data[index]["descripstion_video"],
-                                    style: TextStyle(
-                                        color: Color.fromARGB(255, 5, 46, 122),
-                                        fontSize: 14),
+                              GestureDetector(
+                                onTap: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: ((context) => AddLessons(
+                                          idCourse: data[index]
+                                              ["name_video"]))));
+                                },
+                                child: const Card(
+                                  child: Padding(
+                                    padding: EdgeInsets.all(12.0),
+                                    child: Text(
+                                      "Add Lessons",
+                                      style: TextStyle(
+                                          color:
+                                              Color.fromARGB(255, 5, 46, 122),
+                                          fontSize: 14),
+                                    ),
                                   ),
                                 ),
                               ),
