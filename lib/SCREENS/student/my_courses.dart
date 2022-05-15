@@ -24,7 +24,7 @@ class _MyCoursesState extends State<MyCourses> {
               .collection("Enroll_Courses")
               .doc(auth.currentUser!.uid)
               .collection("MyEnrollCourses")
-              .where("student_id", isEqualTo: auth.currentUser!.uid)
+              .where("student_id", isEqualTo: auth.currentUser!.email)
               .snapshots(),
           builder: (ctx, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {

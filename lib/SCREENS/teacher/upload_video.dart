@@ -105,7 +105,7 @@ class _UploadVideoState extends State<UploadVideo> {
                   child: Padding(
                     padding: const EdgeInsets.all(22.0),
                     child: SizedBox(
-                      height: 251,
+                      height: 171,
                       child: ListView(
                         physics: const NeverScrollableScrollPhysics(),
                         children: [
@@ -195,7 +195,7 @@ class _UploadVideoState extends State<UploadVideo> {
                         ),
                       )
                     : const SizedBox(
-                        height: 200,
+                        height: 100,
                         width: double.infinity,
                         child: Image(
                           image: AssetImage('assets/placeholder.png'),

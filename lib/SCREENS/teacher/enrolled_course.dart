@@ -25,81 +25,88 @@ class _enrolledCourseState extends State<EnrolledCourse> {
     return Scaffold(
       body: SizedBox(
         height: double.infinity,
-        child: StreamBuilder(
-          stream: FirebaseFirestore.instance
-              .collection("Enroll_Courses")
-              .snapshots(),
-          builder: (ctx, AsyncSnapshot<QuerySnapshot> snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
-            } else {
-              final data = snapshot.data!.docs;
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: StreamBuilder(
+            stream: FirebaseFirestore.instance
+                .collection("Enroll_Courses")
+                .snapshots(),
+            builder: (ctx, AsyncSnapshot<QuerySnapshot> snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              } else {
+                final data = snapshot.data!.docs;
 
-              return SizedBox(
-                height: 777,
-                child: ListView.builder(
-                  itemCount: data.length,
-                  itemBuilder: (ctx, index) {
-                    var student = data[index]["student_id"];
-                    var courseName = data[index]["course_name"];
-                    DateTime EnrollTime = data[index]["Enroll_time"];
+                return SizedBox(
+                  height: 777,
+                  child: ListView.builder(
+                    itemCount: data.length,
+                    itemBuilder: (ctx, index) {
+                      var student = data[index]["student_id"];
+                      var courseName = data[index]["course_name"];
+                      var EnrollTime = data[index]["Enroll_time"];
+                      DateTime date = EnrollTime.toDate();
+                      date.day;
 
-                    return Card(
-                      elevation: 10,
-                      child: Column(children: [
-                        SizedBox(
-                            width: double.infinity,
-                            height: 200,
-                            child: Image.asset("assets/download.jpg")),
-                        Text(
-                          "Student : $student",
-                          style: const TextStyle(
-                              color: Colors.black, fontSize: 18),
+                      return Card(
+                        elevation: 10,
+                        child: Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Student Email: $student",
+                                  style: const TextStyle(
+                                      color: Colors.black, fontSize: 18),
+                                ),
+                                const SizedBox(height: 10),
+                                Text(
+                                  "Course Name : $courseName",
+                                  style: const TextStyle(
+                                      color: Colors.black, fontSize: 18),
+                                ),
+                                const SizedBox(height: 10),
+                                Text(
+                                  "Enroll time : ${date.year}/${date.month}/${date.day}",
+                                  // "Enroll time : ${EnrollTime.year}/${EnrollTime.month}/${EnrollTime.day}",
+                                  style: const TextStyle(
+                                      color: Colors.black, fontSize: 18),
+                                ),
+                                const SizedBox(height: 10),
+                              ]),
                         ),
-                        const SizedBox(height: 10),
-                        Text(
-                          "course Name : $courseName",
-                          style: const TextStyle(
-                              color: Colors.black, fontSize: 18),
-                        ),
-                        const SizedBox(height: 10),
-                        Text(
-                          "Enroll time : ${EnrollTime.year}/${EnrollTime.month}/${EnrollTime.day}",
-                          style: const TextStyle(
-                              color: Colors.black, fontSize: 18),
-                        ),
-                        const SizedBox(height: 10),
-                        const SizedBox(height: 20),
-                      ]),
-                    );
+                      );
 
-                    // return GestureDetector(
-                    //   onTap: () {},
-                    //   child: ListTile(
-                    //     title: Text(
-                    //       data[index]["student_id"],
-                    //       style: const TextStyle(
-                    //           color: Colors.black, fontSize: 20),
-                    //     ),
-                    //     subtitle: Text(
-                    //       data[index]["descripstion_video"],
-                    //       style: const TextStyle(
-                    //           color: Colors.black, fontSize: 12),
-                    //     ),
-                    //     leading: Image.asset("assets/download.jpg"),
-                    //     // leading: Text(
-                    //     //   data[index]["time"].toString(),
-                    //     //   style: const TextStyle(
-                    //     //       color: Colors.white, fontSize: 12),
-                    //     //Enroll_time course_name student_id
-                    //     // ),
-                    //   ),
-                    // );
-                  },
-                ),
-              );
-            }
-          },
+                      // return GestureDetector(
+                      //   onTap: () {},
+                      //   child: ListTile(
+                      //     title: Text(
+                      //       data[index]["student_id"],
+                      //       style: const TextStyle(
+                      //           color: Colors.black, fontSize: 20),
+                      //     ),
+                      //     subtitle: Text(
+                      //       data[index]["descripstion_video"],
+                      //       style: const TextStyle(
+                      //           color: Colors.black, fontSize: 12),
+                      //     ),
+                      //     leading: Image.asset("assets/download.jpg"),
+                      //     // leading: Text(
+                      //     //   data[index]["time"].toString(),
+                      //     //   style: const TextStyle(
+                      //     //       color: Colors.white, fontSize: 12),
+                      //     //Enroll_time course_name student_id
+                      //     // ),
+                      //   ),
+                      // );
+                    },
+                  ),
+                );
+              }
+            },
+          ),
         ),
       ),
     );
