@@ -138,6 +138,8 @@ class _AllCoursesState extends State<AllCourses> {
       FirebaseFirestore.instance
           .collection("Enroll_Courses")
           .doc(auth.currentUser!.uid)
+          .collection("MyEnrollCourses")
+          .doc(courseName.trim())
           .set({
         "course_name": courseName.trim(),
         "student_id": studentId.trim(),

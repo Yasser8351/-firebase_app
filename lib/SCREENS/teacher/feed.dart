@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_app/SCREENS/teacher/course_detail.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import '/providers/courses.dart';
 import 'package:flutter/material.dart';
@@ -7,15 +8,18 @@ import 'package:provider/provider.dart';
 
 import 'add_lessons.dart';
 
-class Feed extends StatefulWidget {
+class Dashboard extends StatefulWidget {
+  //Dashboard
   @override
-  static const routeName = '/feed';
+  static const routeName = '/Dashboard';
+
+  const Dashboard({Key? key}) : super(key: key);
   @override
-  _FeedState createState() => _FeedState();
+  _DashboardState createState() => _DashboardState();
 }
 
-class _FeedState extends State<Feed> {
-  @override
+class _DashboardState extends State<Dashboard> {
+  final auth = FirebaseAuth.instance;
   @override
   bool _isLoading = false;
   @override
@@ -61,12 +65,20 @@ class _FeedState extends State<Feed> {
       child: SizedBox(
         height: double.infinity,
         child: StreamBuilder(
-          stream: FirebaseFirestore.instance.collection("videos").snapshots(),
+          stream: FirebaseFirestore.instance
+              .collection("videos")
+              .doc(auth.currentUser!.uid)
+              .collection("teacherCourses")
+              .snapshots(),
           builder: (ctx, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
             } else {
               final data = snapshot.data!.docs;
+
+              if (data.isEmpty) {
+                return const Center(child: Text("No Courses Found"));
+              }
               return Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: SizedBox(

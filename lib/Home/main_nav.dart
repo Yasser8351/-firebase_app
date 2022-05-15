@@ -5,6 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../SCREENS/student/login.dart';
+import '../SCREENS/teacher/my_teacher_course.dart';
 import '../user_share_pref.dart';
 
 class MainNav extends StatefulWidget {
@@ -20,9 +21,9 @@ class _MainNavState extends State<MainNav> {
 
   DateTime timeBackPressed = DateTime.now();
   final List<Widget> _pages = [
-    Feed(),
+    const Dashboard(),
     EnrolledCourse(),
-    EnrolledCourse(),
+    const MyTeacherCourse(),
     //   List<Widget> pages = [Feed(), EnrolledCourse(), EnrolledCourse()];MainNav
   ];
   int _currentPage = 0;
@@ -95,7 +96,7 @@ class _MainNavState extends State<MainNav> {
                         ),
                       ),
                       BottomNavigationBarItem(
-                        label: "Enrolled courses",
+                        label: "All courses",
                         backgroundColor: Colors.white,
                         icon: Icon(
                           Icons.video_camera_back_rounded,

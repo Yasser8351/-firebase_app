@@ -1,12 +1,21 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class CourseDetail extends StatelessWidget {
+class CourseDetail extends StatefulWidget {
   static const routeName = '/courseDetail';
   final title;
   final description;
 
   const CourseDetail({Key? key, this.title, this.description})
       : super(key: key);
+
+  @override
+  State<CourseDetail> createState() => _CourseDetailState();
+}
+
+class _CourseDetailState extends State<CourseDetail> {
+  var auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -38,16 +47,16 @@ class CourseDetail extends StatelessWidget {
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 5),
                   child: Text(
-                    'Course: $title',
+                    'Course: ${widget.title}',
                     style: const TextStyle(
                         fontSize: 25, fontWeight: FontWeight.bold),
                   ),
                 ),
                 Container(
                   margin: const EdgeInsets.symmetric(vertical: 5),
-                  child: const Text(
-                    'Taught by Yasser',
-                    style: TextStyle(
+                  child: Text(
+                    "Taked By  ${auth.currentUser!.email.toString()}",
+                    style: const TextStyle(
                       fontSize: 22,
                     ),
                   ),
@@ -62,7 +71,7 @@ class CourseDetail extends StatelessWidget {
                 Container(
                     margin: const EdgeInsets.symmetric(vertical: 5),
                     child: Text(
-                      description.toString(),
+                      widget.description.toString(),
                       style: const TextStyle(
                           fontSize: 22, fontWeight: FontWeight.w300),
                     )),
@@ -72,7 +81,95 @@ class CourseDetail extends StatelessWidget {
                 )
               ],
             ),
-          )
+          ),
+          SizedBox(
+            height: double.infinity,
+            child: StreamBuilder(
+              stream: FirebaseFirestore.instance
+                  .collection("lessons")
+                  .doc(auth.currentUser!.uid)
+                  .collection(widget.title)
+                  .snapshots(),
+              builder: (ctx, AsyncSnapshot<QuerySnapshot> snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
+                } else {
+                  final data = snapshot.data!.docs;
+                  return Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: SizedBox(
+                      height: double.infinity,
+                      child: ListView.builder(
+                        itemCount: data.length,
+                        itemBuilder: (ctx, index) {
+                          return Card(
+                            elevation: 10,
+                            child: Column(children: [
+                              SizedBox(
+                                  width: double.infinity,
+                                  height: 200,
+                                  child: Image.asset("assets/download.jpg")),
+                              Text(
+                                //"title",
+                                data[index].toString(),
+                                style: const TextStyle(
+                                    color: Colors.black, fontSize: 18),
+                              ),
+                              Text(
+                                //"title",
+                                data[index]["name_lessons"],
+                                style: const TextStyle(
+                                    color: Colors.black, fontSize: 18),
+                              ),
+                              const SizedBox(height: 10),
+                              Text(
+                                //"descripstion_video",
+                                data[index]["descripstion_lessons"],
+                                style: const TextStyle(
+                                    color: Colors.black, fontSize: 18),
+                              ),
+                              const SizedBox(height: 10),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  GestureDetector(
+                                    onTap: () {
+                                      Navigator.of(context)
+                                          .push(MaterialPageRoute(
+                                              builder: (ctx) => CourseDetail(
+                                                    description: data[index]
+                                                        ["descripstion_video"],
+                                                    title: data[index]
+                                                        ["name_video"],
+                                                  )));
+                                    },
+                                    child: const Card(
+                                      child: Padding(
+                                        padding: EdgeInsets.all(12.0),
+                                        child: Text(
+                                          "view course",
+                                          //data[index]["descripstion_video"],
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 14),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(width: 15),
+                                ],
+                              ),
+                              const SizedBox(height: 20),
+                            ]),
+                          );
+                        },
+                      ),
+                    ),
+                  );
+                }
+              },
+            ),
+          ),
         ],
       )),
     );

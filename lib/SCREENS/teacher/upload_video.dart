@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 
@@ -21,7 +22,7 @@ class _UploadVideoState extends State<UploadVideo> {
   final _videoNameController = TextEditingController();
   final _descripstionController = TextEditingController();
   bool isLoading = false;
-
+  final auth = FirebaseAuth.instance;
   Future selectFile() async {
     final result = await FilePicker.platform.pickFiles();
     if (result != null) {
@@ -54,6 +55,8 @@ class _UploadVideoState extends State<UploadVideo> {
       final urlDownload = snapshot.ref.getDownloadURL().then((value) {
         FirebaseFirestore.instance
             .collection("videos")
+            .doc(auth.currentUser!.uid)
+            .collection("teacherCourses")
             .doc(DateTime.now().toString() + url.toString())
             .set(
           {
@@ -166,7 +169,7 @@ class _UploadVideoState extends State<UploadVideo> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 30),
+                // const SizedBox(height: 30),
                 pickedFile != null
                     ? GestureDetector(
                         onTap: () {
@@ -175,8 +178,13 @@ class _UploadVideoState extends State<UploadVideo> {
                         child: Container(
                           child: Center(
                               child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: const [
-                              Icon(Icons.done, color: Colors.green),
+                              Icon(
+                                Icons.done,
+                                color: Colors.green,
+                                size: 45,
+                              ),
                               SizedBox(width: 5),
                               Text("تم ارفاق الملف بنجاح"),
                             ],

@@ -1,4 +1,4 @@
-import 'package:firebase_app/SCREENS/student/tab_screen_student.dart';
+import 'package:firebase_app/Home/main_nav.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -38,7 +38,8 @@ class _AuthState extends State<Auth> {
   @override
   Widget build(BuildContext context) {
     if (_auth.currentUser != null) {
-      return const TabScreenStudent();
+      return const MainNav();
+      // return const TabScreenStudent();
     } else {
       return const Login();
     }

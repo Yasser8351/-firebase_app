@@ -22,6 +22,8 @@ class _MyCoursesState extends State<MyCourses> {
         child: StreamBuilder(
           stream: FirebaseFirestore.instance
               .collection("Enroll_Courses")
+              .doc(auth.currentUser!.uid)
+              .collection("MyEnrollCourses")
               .where("student_id", isEqualTo: auth.currentUser!.uid)
               .snapshots(),
           builder: (ctx, AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -77,7 +79,9 @@ class _MyCoursesState extends State<MyCourses> {
                                 const SizedBox(width: 40),
                                 Text(
                                   date.year.toString() +
+                                      "/" +
                                       date.month.toString() +
+                                      "/" +
                                       date.day.toString(),
                                   style: const TextStyle(
                                       color: Colors.black, fontSize: 18),
