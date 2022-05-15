@@ -26,7 +26,9 @@ class _enrolledCourseState extends State<EnrolledCourse> {
       body: SizedBox(
         height: double.infinity,
         child: StreamBuilder(
-          stream: FirebaseFirestore.instance.collection("videos").snapshots(),
+          stream: FirebaseFirestore.instance
+              .collection("Enroll_Courses")
+              .snapshots(),
           builder: (ctx, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
@@ -55,6 +57,7 @@ class _enrolledCourseState extends State<EnrolledCourse> {
                         //   data[index]["time"].toString(),
                         //   style: const TextStyle(
                         //       color: Colors.white, fontSize: 12),
+                        //Enroll_time course_name student_id
                         // ),
                       ),
                     );

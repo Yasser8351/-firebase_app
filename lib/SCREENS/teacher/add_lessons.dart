@@ -57,14 +57,16 @@ class _AddLessonsState extends State<AddLessons> {
 
       final urlDownload = snapshot.ref.getDownloadURL().then((value) {
         FirebaseFirestore.instance
+            // .collection("lessons")
+            // .doc(auth.currentUser!.uid)
+            // .collection(
+            //   _videoNameController.text,
+            // )
+            // .doc(
+            //   _videoNameController.text,
+            // )
             .collection("lessons")
             .doc(auth.currentUser!.uid)
-            .collection(
-              _videoNameController.text,
-            )
-            .doc(DateTime.now().toString())
-            // .collection("lessons")
-            // .doc(DateTime.now().toString() + url.toString())
             .set(
           {
             "name_lessons": _videoNameController.text,
@@ -112,7 +114,7 @@ class _AddLessonsState extends State<AddLessons> {
                   child: Padding(
                     padding: const EdgeInsets.all(22.0),
                     child: SizedBox(
-                      height: 251,
+                      height: 180,
                       child: ListView(
                         physics: const NeverScrollableScrollPhysics(),
                         children: [

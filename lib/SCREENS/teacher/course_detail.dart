@@ -22,6 +22,7 @@ class _CourseDetailState extends State<CourseDetail> {
   @override
   Widget build(BuildContext context) {
     //Course course = ModalRoute.of(context).settings.arguments;
+    log(widget.title);
     return Scaffold(
       appBar: AppBar(
         title: const Text(""),
@@ -111,28 +112,33 @@ class _CourseDetailState extends State<CourseDetail> {
                               data[index]["descripstion_lessons"];
                           return Card(
                             elevation: 10,
-                            child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "lessons :${i.toString()}",
-                                    style: const TextStyle(
-                                        color: Colors.black, fontSize: 18),
-                                  ),
-                                  Text(
-                                    "lessons name :$nameLessons", //
-                                    style: const TextStyle(
-                                        color: Colors.black, fontSize: 18),
-                                  ),
-                                  const SizedBox(height: 10),
-                                  Text(
-                                    "descripstion :$descripstionLessons",
-                                    style: const TextStyle(
-                                        color: Colors.black, fontSize: 18),
-                                  ),
-                                  const SizedBox(height: 20),
-                                ]),
+                            child: Padding(
+                              padding: const EdgeInsets.all(13.0),
+                              child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "lessons :${i.toString()}",
+                                      style: const TextStyle(
+                                          color: Colors.black, fontSize: 18),
+                                    ),
+                                    const SizedBox(height: 10),
+
+                                    Text(
+                                      "lessons name :$nameLessons", //
+                                      style: const TextStyle(
+                                          color: Colors.black, fontSize: 18),
+                                    ),
+                                    const SizedBox(height: 10),
+                                    Text(
+                                      "descripstion :$descripstionLessons",
+                                      style: const TextStyle(
+                                          color: Colors.black, fontSize: 18),
+                                    ),
+                                    // const SizedBox(height: 20),
+                                  ]),
+                            ),
                           );
                         },
                       ),

@@ -96,7 +96,7 @@ class _MainNavState extends State<MainNav> {
                         ),
                       ),
                       BottomNavigationBarItem(
-                        label: "All courses",
+                        label: "Enrolled Course",
                         backgroundColor: Colors.white,
                         icon: Icon(
                           Icons.video_camera_back_rounded,

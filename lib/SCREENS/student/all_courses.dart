@@ -142,7 +142,7 @@ class _AllCoursesState extends State<AllCourses> {
           .doc(courseName.trim())
           .set({
         "course_name": courseName.trim(),
-        "student_id": studentId.trim(),
+        "student_id": auth.currentUser!.email,
         "isEnroll": true,
         "Enroll_time": DateTime.now(),
       });
@@ -151,22 +151,11 @@ class _AllCoursesState extends State<AllCourses> {
       });
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("تم الاشتراك في الكورس بنجاح")));
-      //Navigator.of(context).pushNamed(Login.routeName);
     } on FirebaseAuthException {
       setState(() {
         isLoading = false;
       });
-      // String errorMessage = "";
-      // switch (error.code) {
-      //   case "weak-password":
-      //     errorMessage = "The password provided is too weak.";
-      //     break;
-      //   case "email-already-in-use":
-      //     errorMessage = "The account already exists for that email.";
-      //     break;
-      //   default:
-      //     errorMessage = "An undefined Error happened.";
-      // }
+
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("حدث خطأ اثناء الاشتراك")));
     } catch (error) {
