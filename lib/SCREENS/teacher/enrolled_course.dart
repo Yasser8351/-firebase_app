@@ -34,33 +34,67 @@ class _enrolledCourseState extends State<EnrolledCourse> {
               return const Center(child: CircularProgressIndicator());
             } else {
               final data = snapshot.data!.docs;
+
               return SizedBox(
                 height: 777,
                 child: ListView.builder(
                   itemCount: data.length,
                   itemBuilder: (ctx, index) {
-                    return GestureDetector(
-                      onTap: () {},
-                      child: ListTile(
-                        title: Text(
-                          data[index]["name_video"],
+                    var student = data[index]["student_id"];
+                    var courseName = data[index]["course_name"];
+                    DateTime EnrollTime = data[index]["Enroll_time"];
+
+                    return Card(
+                      elevation: 10,
+                      child: Column(children: [
+                        SizedBox(
+                            width: double.infinity,
+                            height: 200,
+                            child: Image.asset("assets/download.jpg")),
+                        Text(
+                          "Student : $student",
                           style: const TextStyle(
-                              color: Colors.black, fontSize: 20),
+                              color: Colors.black, fontSize: 18),
                         ),
-                        subtitle: Text(
-                          data[index]["descripstion_video"],
+                        const SizedBox(height: 10),
+                        Text(
+                          "course Name : $courseName",
                           style: const TextStyle(
-                              color: Colors.black, fontSize: 12),
+                              color: Colors.black, fontSize: 18),
                         ),
-                        leading: Image.asset("assets/download.jpg"),
-                        // leading: Text(
-                        //   data[index]["time"].toString(),
-                        //   style: const TextStyle(
-                        //       color: Colors.white, fontSize: 12),
-                        //Enroll_time course_name student_id
-                        // ),
-                      ),
+                        const SizedBox(height: 10),
+                        Text(
+                          "Enroll time : ${EnrollTime.year}/${EnrollTime.month}/${EnrollTime.day}",
+                          style: const TextStyle(
+                              color: Colors.black, fontSize: 18),
+                        ),
+                        const SizedBox(height: 10),
+                        const SizedBox(height: 20),
+                      ]),
                     );
+
+                    // return GestureDetector(
+                    //   onTap: () {},
+                    //   child: ListTile(
+                    //     title: Text(
+                    //       data[index]["student_id"],
+                    //       style: const TextStyle(
+                    //           color: Colors.black, fontSize: 20),
+                    //     ),
+                    //     subtitle: Text(
+                    //       data[index]["descripstion_video"],
+                    //       style: const TextStyle(
+                    //           color: Colors.black, fontSize: 12),
+                    //     ),
+                    //     leading: Image.asset("assets/download.jpg"),
+                    //     // leading: Text(
+                    //     //   data[index]["time"].toString(),
+                    //     //   style: const TextStyle(
+                    //     //       color: Colors.white, fontSize: 12),
+                    //     //Enroll_time course_name student_id
+                    //     // ),
+                    //   ),
+                    // );
                   },
                 ),
               );
