@@ -176,7 +176,7 @@ class _AddLessonsState extends State<AddLessons> {
                     ),
                   ),
                 ),
-                const SizedBox(height: 30),
+                // const SizedBox(height: 30),
                 pickedFile != null
                     ? GestureDetector(
                         onTap: () {

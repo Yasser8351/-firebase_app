@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -83,18 +85,19 @@ class _CourseDetailState extends State<CourseDetail> {
             ),
           ),
           SizedBox(
-            height: double.infinity,
+            height: 333,
             child: StreamBuilder(
               stream: FirebaseFirestore.instance
                   .collection("lessons")
-                  .doc(auth.currentUser!.uid)
-                  .collection(widget.title)
+                  // .doc(auth.currentUser!.uid)
+                  // .collection(widget.title)
                   .snapshots(),
               builder: (ctx, AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(child: CircularProgressIndicator());
                 } else {
                   final data = snapshot.data!.docs;
+                  log(data.length.toString());
                   return Padding(
                     padding: const EdgeInsets.all(15.0),
                     child: SizedBox(
@@ -102,65 +105,34 @@ class _CourseDetailState extends State<CourseDetail> {
                       child: ListView.builder(
                         itemCount: data.length,
                         itemBuilder: (ctx, index) {
+                          int i = index + 1;
+                          var nameLessons = data[index]["name_lessons"];
+                          var descripstionLessons =
+                              data[index]["descripstion_lessons"];
                           return Card(
                             elevation: 10,
-                            child: Column(children: [
-                              SizedBox(
-                                  width: double.infinity,
-                                  height: 200,
-                                  child: Image.asset("assets/download.jpg")),
-                              Text(
-                                //"title",
-                                data[index].toString(),
-                                style: const TextStyle(
-                                    color: Colors.black, fontSize: 18),
-                              ),
-                              Text(
-                                //"title",
-                                data[index]["name_lessons"],
-                                style: const TextStyle(
-                                    color: Colors.black, fontSize: 18),
-                              ),
-                              const SizedBox(height: 10),
-                              Text(
-                                //"descripstion_video",
-                                data[index]["descripstion_lessons"],
-                                style: const TextStyle(
-                                    color: Colors.black, fontSize: 18),
-                              ),
-                              const SizedBox(height: 10),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
+                            child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  GestureDetector(
-                                    onTap: () {
-                                      Navigator.of(context)
-                                          .push(MaterialPageRoute(
-                                              builder: (ctx) => CourseDetail(
-                                                    description: data[index]
-                                                        ["descripstion_video"],
-                                                    title: data[index]
-                                                        ["name_video"],
-                                                  )));
-                                    },
-                                    child: const Card(
-                                      child: Padding(
-                                        padding: EdgeInsets.all(12.0),
-                                        child: Text(
-                                          "view course",
-                                          //data[index]["descripstion_video"],
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 14),
-                                        ),
-                                      ),
-                                    ),
+                                  Text(
+                                    "lessons :${i.toString()}",
+                                    style: const TextStyle(
+                                        color: Colors.black, fontSize: 18),
                                   ),
-                                  const SizedBox(width: 15),
-                                ],
-                              ),
-                              const SizedBox(height: 20),
-                            ]),
+                                  Text(
+                                    "lessons name :$nameLessons", //
+                                    style: const TextStyle(
+                                        color: Colors.black, fontSize: 18),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Text(
+                                    "descripstion :$descripstionLessons",
+                                    style: const TextStyle(
+                                        color: Colors.black, fontSize: 18),
+                                  ),
+                                  const SizedBox(height: 20),
+                                ]),
                           );
                         },
                       ),
