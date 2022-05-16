@@ -67,6 +67,7 @@ class _DashboardState extends State<Dashboard> {
         child: StreamBuilder(
           stream: FirebaseFirestore.instance
               .collection("videos")
+              .where("teacher_id", isEqualTo: auth.currentUser!.uid)
               // .doc(auth.currentUser!.uid)
               // .collection("teacherCourses")
               .snapshots(),

@@ -55,7 +55,7 @@ class _UploadVideoState extends State<UploadVideo> {
       final urlDownload = snapshot.ref.getDownloadURL().then((value) {
         FirebaseFirestore.instance
             .collection("videos")
-            .doc(auth.currentUser!.uid)
+            .doc(DateTime.now().toString())
             // .collection("teacherCourses")
             // .doc(DateTime.now().toString() + url.toString())
             .set(
@@ -95,6 +95,9 @@ class _UploadVideoState extends State<UploadVideo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text(""),
+      ),
       body: isLoading
           ? const Center(child: CircularProgressIndicator())
           : Column(

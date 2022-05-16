@@ -61,12 +61,12 @@ class MyApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.indigo)
               .copyWith(secondary: Colors.deepPurpleAccent),
         ),
-        //  home: const UploadVideo(),
+        //home: const VideoDemo(),
         home: const Auth(),
         routes: {
           Loading.routeName: (ctx) => Loading(),
           Auth.routeName: (ctx) => const Auth(),
-          CourseDetail.routeName: (ctx) => const CourseDetail(title: ""),
+          CourseDetail.routeName: (ctx) => const CourseDetail(),
           CreateCourse.routeName: (ctx) => CreateCourse(),
           AddPostCourse.routeName: (ctx) => CreateCourse(),
           MainNav.routeName: (ctx) => const MainNav(),
