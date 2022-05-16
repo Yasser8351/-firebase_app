@@ -86,12 +86,13 @@ class _CourseDetailState extends State<CourseDetail> {
             ),
           ),
           SizedBox(
-            height: 333,
+            height: 200,
             child: StreamBuilder(
               stream: FirebaseFirestore.instance
                   .collection("lessons")
                   // .doc(auth.currentUser!.uid)
-                  // .collection(widget.title)
+                  // .collection("video_details")
+                  .where("video_id", isEqualTo: widget.title)
                   .snapshots(),
               builder: (ctx, AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {

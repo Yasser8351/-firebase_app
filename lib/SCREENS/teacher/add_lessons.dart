@@ -66,13 +66,16 @@ class _AddLessonsState extends State<AddLessons> {
             //   _videoNameController.text,
             // )
             .collection("lessons")
-            .doc(auth.currentUser!.uid)
+            .doc(DateTime.now().toString())
+            // .collection("video_details")
+            // .doc(DateTime.now().timeZoneName)
             .set(
           {
             "name_lessons": _videoNameController.text,
             "descripstion_lessons": _descripstionController.text,
             "lessons_url": value.toString(),
-            "time": DateTime.now()
+            "time": DateTime.now(),
+            "video_id": widget.idCourse
           },
         );
         setState(() {
@@ -103,6 +106,9 @@ class _AddLessonsState extends State<AddLessons> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("add leasson"),
+      ),
       body: isLoading
           ? const Center(child: CircularProgressIndicator())
           : Column(
@@ -212,9 +218,9 @@ class _AddLessonsState extends State<AddLessons> {
                         ),
                       ),
                 ElevatedButton(
-                    onPressed: selectFile, child: const Text("Select File")),
+                    onPressed: selectFile, child: const Text("اختار الفيديو")),
                 ElevatedButton(
-                    onPressed: uplaodFile, child: const Text("Upload File")),
+                    onPressed: uplaodFile, child: const Text("انشاء الكورس")),
               ],
             ),
     );

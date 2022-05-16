@@ -34,8 +34,9 @@ class _MyTeacherCourseState extends State<MyTeacherCourse> {
         child: StreamBuilder(
           stream: FirebaseFirestore.instance
               .collection("videos")
-              .doc(auth.currentUser!.uid)
-              .collection("teacherCourses")
+              .where("teacher_id", isEqualTo: auth.currentUser!.uid)
+              //.doc(auth.currentUser!.uid)
+              //.collection("teacherCourses")
               .snapshots(),
 
           //.snapshots(),

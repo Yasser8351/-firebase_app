@@ -66,7 +66,7 @@ class MyApp extends StatelessWidget {
         routes: {
           Loading.routeName: (ctx) => Loading(),
           Auth.routeName: (ctx) => const Auth(),
-          CourseDetail.routeName: (ctx) => const CourseDetail(),
+          CourseDetail.routeName: (ctx) => const CourseDetail(title: ""),
           CreateCourse.routeName: (ctx) => CreateCourse(),
           AddPostCourse.routeName: (ctx) => CreateCourse(),
           MainNav.routeName: (ctx) => const MainNav(),

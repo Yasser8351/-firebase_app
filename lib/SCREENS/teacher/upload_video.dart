@@ -56,13 +56,14 @@ class _UploadVideoState extends State<UploadVideo> {
         FirebaseFirestore.instance
             .collection("videos")
             .doc(auth.currentUser!.uid)
-            .collection("teacherCourses")
-            .doc(DateTime.now().toString() + url.toString())
+            // .collection("teacherCourses")
+            // .doc(DateTime.now().toString() + url.toString())
             .set(
           {
             "name_video": _videoNameController.text,
             "descripstion_video": _descripstionController.text,
             "video_url": value.toString(),
+            "teacher_id": auth.currentUser!.uid,
             "time": DateTime.now()
           },
         );
@@ -203,9 +204,9 @@ class _UploadVideoState extends State<UploadVideo> {
                         ),
                       ),
                 ElevatedButton(
-                    onPressed: selectFile, child: const Text("Select File")),
+                    onPressed: selectFile, child: const Text("اختار الفيديو")),
                 ElevatedButton(
-                    onPressed: uplaodFile, child: const Text("Upload File")),
+                    onPressed: uplaodFile, child: const Text("انشاء الكورس")),
               ],
             ),
     );

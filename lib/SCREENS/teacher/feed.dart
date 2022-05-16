@@ -67,8 +67,8 @@ class _DashboardState extends State<Dashboard> {
         child: StreamBuilder(
           stream: FirebaseFirestore.instance
               .collection("videos")
-              .doc(auth.currentUser!.uid)
-              .collection("teacherCourses")
+              // .doc(auth.currentUser!.uid)
+              // .collection("teacherCourses")
               .snapshots(),
           builder: (ctx, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
