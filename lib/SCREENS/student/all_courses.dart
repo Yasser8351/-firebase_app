@@ -106,9 +106,13 @@ class _AllCoursesState extends State<AllCourses> {
                                     return GestureDetector(
                                       onTap: () {
                                         enrollCourse(
-                                          data[index]["name_video"].toString(),
-                                          auth.currentUser!.uid,
-                                        );
+                                            auth.currentUser!.uid,
+                                            data[index]["descripstion_video"]
+                                                .toString(),
+                                            data[index]["name_video"]
+                                                .toString(),
+                                            data[index]["video_url"]
+                                                .toString());
                                       },
                                       child: const Card(
                                         child: Padding(
@@ -144,8 +148,10 @@ class _AllCoursesState extends State<AllCourses> {
   }
 
   Future<void> enrollCourse(
-    String courseName,
     String studentId,
+    String descripstionVideo,
+    String nameVideo,
+    String videoUrl,
   ) async {
     try {
       setState(() {
@@ -156,12 +162,14 @@ class _AllCoursesState extends State<AllCourses> {
           .collection("Enroll_Courses")
           .doc(auth.currentUser!.uid)
           .collection("MyEnrollCourses")
-          .doc(courseName.trim())
+          .doc(nameVideo.trim())
           .set({
-        "course_name": courseName.trim(),
         "student_id": auth.currentUser!.email,
         "isEnroll": true,
         "Enroll_time": DateTime.now(),
+        "name_video": nameVideo,
+        "descripstion_video": descripstionVideo,
+        "video_url": videoUrl,
       });
       setState(() {
         isLoading = false;
