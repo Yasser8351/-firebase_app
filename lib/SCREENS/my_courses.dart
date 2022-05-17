@@ -20,12 +20,7 @@ class _MyCoursesState extends State<MyCourses> {
       child: SizedBox(
         height: double.infinity,
         child: StreamBuilder(
-          stream: FirebaseFirestore.instance
-              .collection("Enroll_Courses")
-              .doc(auth.currentUser!.uid)
-              .collection("MyEnrollCourses")
-              .where("student_id", isEqualTo: auth.currentUser!.email)
-              .snapshots(),
+          stream: getData(),
           builder: (ctx, AsyncSnapshot<QuerySnapshot> snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
@@ -153,5 +148,14 @@ class _MyCoursesState extends State<MyCourses> {
         ),
       ),
     );
+  }
+
+  Stream<QuerySnapshot> getData() {
+    return FirebaseFirestore.instance
+            .collection("Enroll_Courses")
+            .doc(auth.currentUser!.uid)
+            .collection("MyEnrollCourses")
+            .where("student_id", isEqualTo: auth.currentUser!.email)
+            .snapshots();
   }
 }
