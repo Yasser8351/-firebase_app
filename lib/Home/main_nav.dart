@@ -4,7 +4,7 @@ import 'package:firebase_app/SCREENS/teacher/upload_video.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../SCREENS/student/login.dart';
+import '../SCREENS/teacher/login.dart';
 import '../SCREENS/teacher/my_teacher_course.dart';
 import '../user_share_pref.dart';
 

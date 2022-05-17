@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'register.dart';
-import 'tab_screen_student.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key, this.typeAccount = 0}) : super(key: key);
@@ -156,7 +155,7 @@ class _LoginState extends State<Login> {
       await auth.signInWithEmailAndPassword(email: name, password: password);
       if (widget.typeAccount == 1) {
         pref.saveId(1);
-        Navigator.of(context).pushNamed(TabScreenStudent.routeName);
+        Navigator.of(context).pushNamed(MainNav.routeName);
       } else {
         pref.saveId(0);
         Navigator.of(context).pushNamed(MainNav.routeName);

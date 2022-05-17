@@ -1,6 +1,3 @@
-import 'package:firebase_app/SCREENS/student/login.dart';
-import 'package:firebase_app/SCREENS/student/register.dart';
-import 'package:firebase_app/SCREENS/student/tab_screen_student.dart';
 import 'package:firebase_app/SCREENS/teacher/course_detail.dart';
 import 'package:firebase_app/SCREENS/teacher/enrolled_course.dart';
 import 'package:firebase_app/SCREENS/teacher/feed.dart';
@@ -14,6 +11,8 @@ import 'SCREENS/teacher/add_post_in_course.dart';
 import 'SCREENS/teacher/auth.dart';
 import 'SCREENS/teacher/create_course.dart';
 import 'SCREENS/teacher/loading.dart';
+import 'SCREENS/teacher/login.dart';
+import 'SCREENS/teacher/register.dart';
 import 'SCREENS/teacher/user_home.dart';
 
 import 'package:firebase_core/firebase_core.dart';
@@ -71,7 +70,6 @@ class MyApp extends StatelessWidget {
           AddPostCourse.routeName: (ctx) => CreateCourse(),
           MainNav.routeName: (ctx) => const MainNav(),
           Login.routeName: (ctx) => const Login(),
-          TabScreenStudent.routeName: (ctx) => const TabScreenStudent(),
           Register.routeName: (ctx) => const Register(),
           CourseNav.routeName: (ctx) => const CourseNav(),
           Dashboard.routeName: (ctx) => const Dashboard(),
