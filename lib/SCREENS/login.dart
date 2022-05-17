@@ -1,6 +1,5 @@
 import 'dart:developer';
 
-import 'package:firebase_app/Home/main_nav.dart';
 import 'package:firebase_app/user_share_pref.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -159,7 +158,7 @@ class _LoginState extends State<Login> {
         Navigator.of(context).pushNamed(TabScreenStudent.routeName);
       } else {
         pref.saveId(0);
-        Navigator.of(context).pushNamed(MainNav.routeName);
+        Navigator.of(context).pushNamed(TabScreenStudent.routeName);
       }
     } on FirebaseAuthException catch (error) {
       String errorMessage = "";

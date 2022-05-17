@@ -1,8 +1,8 @@
-import 'package:firebase_app/SCREENS/teacher/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_splash_screen/easy_splash_screen.dart';
 
 import '../user_share_pref.dart';
+import 'auth.dart';
 
 class SplashScreenPage extends StatefulWidget {
   @override

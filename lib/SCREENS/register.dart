@@ -142,45 +142,21 @@ class _RegisterState extends State<Register> {
               isLoading
                   ? const Center(
                       child: CircularProgressIndicator(color: Colors.black))
-                  : Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        ElevatedButton(
-                          child: const Padding(
-                            padding: EdgeInsets.all(12.0),
-                            child: Text(
-                              'التسجيل كاستاذ',
-                              style: TextStyle(
-                                  color: Colors.white, fontSize: 18.0),
-                            ),
-                          ),
-                          onPressed: () {
-                            registerUser(
-                                _emailController.text,
-                                _userNameController.text,
-                                _passwordController.text,
-                                0);
-                          },
+                  : ElevatedButton(
+                      child: const Padding(
+                        padding: EdgeInsets.all(12.0),
+                        child: Text(
+                          'انشاء حساب',
+                          style: TextStyle(color: Colors.white, fontSize: 18.0),
                         ),
-                        ElevatedButton(
-                          child: const Padding(
-                            padding: EdgeInsets.all(12.0),
-                            child: Text(
-                              'التسجيل كطالب',
-                              style: TextStyle(
-                                  color: Colors.white, fontSize: 18.0),
-                            ),
-                          ),
-                          onPressed: () {
-                            registerUser(
-                                _emailController.text,
-                                _userNameController.text,
-                                _passwordController.text,
-                                1);
-                          },
-                        ),
-                      ],
+                      ),
+                      onPressed: () {
+                        registerUser(
+                            _emailController.text,
+                            _userNameController.text,
+                            _passwordController.text,
+                            0);
+                      },
                     ),
               TextButton(
                 onPressed: () {
