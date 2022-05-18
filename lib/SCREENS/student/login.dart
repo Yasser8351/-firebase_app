@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:firebase_app/Home/main_nav.dart';
 import 'package:firebase_app/user_share_pref.dart';
 import 'package:flutter/material.dart';
@@ -9,9 +7,9 @@ import 'register.dart';
 import 'tab_screen_student.dart';
 
 class Login extends StatefulWidget {
-  const Login({Key? key, this.typeAccount = 0}) : super(key: key);
+  const Login({Key? key, this.type = 0}) : super(key: key);
   static const routeName = 'login';
-  final int typeAccount;
+  final int type;
 
   @override
   _LoginState createState() => _LoginState();
@@ -34,7 +32,6 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    log(widget.typeAccount.toString());
     return Scaffold(
       body: Container(
         color: Theme.of(context).colorScheme.onPrimary,
@@ -154,11 +151,9 @@ class _LoginState extends State<Login> {
         isLoading = true;
       });
       await auth.signInWithEmailAndPassword(email: name, password: password);
-      if (widget.typeAccount == 1) {
-        pref.saveId(1);
+      if (widget.type == 1) {
         Navigator.of(context).pushNamed(TabScreenStudent.routeName);
       } else {
-        pref.saveId(0);
         Navigator.of(context).pushNamed(MainNav.routeName);
       }
     } on FirebaseAuthException catch (error) {

@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import '../../sharepref/user_share_pref.dart';
 import 'login.dart';
 
 class Register extends StatefulWidget {
@@ -163,6 +164,7 @@ class _RegisterState extends State<Register> {
                                 0);
                           },
                         ),
+                        const SizedBox(width: 5),
                         ElevatedButton(
                           child: const Padding(
                             padding: EdgeInsets.all(12.0),
@@ -208,7 +210,7 @@ class _RegisterState extends State<Register> {
           email: email, password: password);
 
       FirebaseFirestore.instance
-          .collection(typeAccount == 0 ? "student" : "teacher")
+          .collection(typeAccount == 0 ? "teacher" : "student")
           .doc(userCredential.user!.uid)
           .set({
         "username": name.trim(),
@@ -220,10 +222,13 @@ class _RegisterState extends State<Register> {
       setState(() {
         isLoading = false;
       });
+      await SharedPrefUser().saveId(typeAccount);
+      await SharedPrefUser().login();
+
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text("تم انشاء الحساب بنجاح..قم بتسجيل الدخول")));
-      Navigator.of(context).push(
-          MaterialPageRoute(builder: (ctx) => Login(typeAccount: typeAccount)));
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (ctx) => Login(type: typeAccount)));
     } on FirebaseAuthException catch (error) {
       setState(() {
         isLoading = false;

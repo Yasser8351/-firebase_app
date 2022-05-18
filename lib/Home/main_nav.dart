@@ -1,10 +1,11 @@
+import 'package:firebase_app/SCREENS/student/register.dart';
 import 'package:firebase_app/SCREENS/teacher/enrolled_course.dart';
 import 'package:firebase_app/SCREENS/teacher/feed.dart';
 import 'package:firebase_app/SCREENS/teacher/upload_video.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-import '../SCREENS/student/login.dart';
 import '../SCREENS/teacher/my_teacher_course.dart';
 import '../user_share_pref.dart';
 
@@ -18,6 +19,7 @@ class MainNav extends StatefulWidget {
 
 class _MainNavState extends State<MainNav> {
   final auth = FirebaseAuth.instance;
+  late SharedPreferences prefs;
 
   DateTime timeBackPressed = DateTime.now();
   final List<Widget> _pages = [
@@ -69,9 +71,11 @@ class _MainNavState extends State<MainNav> {
                       IconButton(
                           onPressed: () {
                             SharedPrefUser().logout();
+                            prefs.clear();
 
                             auth.signOut();
-                            Navigator.of(context).pushNamed(Login.routeName);
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: ((context) => const Register())));
                           },
                           icon: const Icon(Icons.logout))
                     ],

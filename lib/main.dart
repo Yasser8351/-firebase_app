@@ -1,3 +1,4 @@
+import 'package:firebase_app/SCREENS/intro_screen.dart';
 import 'package:firebase_app/SCREENS/student/login.dart';
 import 'package:firebase_app/SCREENS/student/register.dart';
 import 'package:firebase_app/SCREENS/student/tab_screen_student.dart';
@@ -62,7 +63,7 @@ class MyApp extends StatelessWidget {
               .copyWith(secondary: Colors.deepPurpleAccent),
         ),
         //home: const VideoDemo(),
-        home: const Auth(),
+        home: SplashScreenPage(),
         routes: {
           Loading.routeName: (ctx) => Loading(),
           Auth.routeName: (ctx) => const Auth(),

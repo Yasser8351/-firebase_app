@@ -1,9 +1,10 @@
+import 'package:firebase_app/SCREENS/student/register.dart';
 import 'package:firebase_app/user_share_pref.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'all_courses.dart';
-import 'login.dart';
 import 'my_courses.dart';
 
 class TabScreenStudent extends StatefulWidget {
@@ -16,6 +17,7 @@ class TabScreenStudent extends StatefulWidget {
 
 class _TabScreenStudentState extends State<TabScreenStudent> {
   int _selectIndex = 0;
+  late SharedPreferences prefs;
 
   void _navigateBottomBar(int index) {
     setState(() {
@@ -66,8 +68,11 @@ class _TabScreenStudentState extends State<TabScreenStudent> {
                     IconButton(
                         onPressed: () {
                           SharedPrefUser().logout();
+                          prefs.clear();
+
                           auth.signOut();
-                          Navigator.of(context).pushNamed(Login.routeName);
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: ((context) => const Register())));
                         },
                         icon: const Icon(Icons.logout))
                   ],

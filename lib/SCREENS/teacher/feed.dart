@@ -78,7 +78,8 @@ class _DashboardState extends State<Dashboard> {
               final data = snapshot.data!.docs;
 
               if (data.isEmpty) {
-                return const Center(child: Text("No Courses Found"));
+                return const Center(
+                    child: Text("No Courses Found... add some"));
               }
               return Padding(
                 padding: const EdgeInsets.all(15.0),
