@@ -26,7 +26,6 @@ class _CourseDetailState extends State<CourseDetail> {
 
   @override
   Widget build(BuildContext context) {
-    //Course course = ModalRoute.of(context).settings.arguments;
     log(widget.title);
     return Scaffold(
       appBar: AppBar(
