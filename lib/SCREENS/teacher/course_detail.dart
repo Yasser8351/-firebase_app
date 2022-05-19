@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_app/sharepref/user_share_pref.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -19,6 +20,8 @@ class CourseDetail extends StatefulWidget {
 }
 
 class _CourseDetailState extends State<CourseDetail> {
+  int nextLesson = 0;
+
   var auth = FirebaseAuth.instance;
 
   @override
@@ -37,11 +40,10 @@ class _CourseDetailState extends State<CourseDetail> {
         children: [
           Hero(
               tag: "",
-              child: Container(
+              child: SizedBox(
                 width: double.infinity,
-                height: 300,
+                height: 100,
                 child: Image.asset("assets/download.jpg"),
-                decoration: const BoxDecoration(),
               )),
           Container(
             padding: const EdgeInsets.all(20),
@@ -88,7 +90,7 @@ class _CourseDetailState extends State<CourseDetail> {
             ),
           ),
           SizedBox(
-            height: 200,
+            height: 400,
             child: StreamBuilder(
               stream: FirebaseFirestore.instance
                   .collection("lessons")
@@ -107,30 +109,96 @@ class _CourseDetailState extends State<CourseDetail> {
                     child: SizedBox(
                       height: double.infinity,
                       child: ListView.builder(
+                        // physics: NeverScrollableScrollPhysics,
+                        // scrollDirection: NeverScrollableScrollPhysics,
                         itemCount: data.length,
                         itemBuilder: (ctx, index) {
                           int i = index + 1;
                           var nameLessons = data[index]["name_lessons"];
                           var descripstionLessons =
                               data[index]["descripstion_lessons"];
+                          Map<String, dynamic> user = {
+                            'one': false,
+                            'two': false,
+                            'three': false,
+                            'hore': false,
+                            'hife': false,
+                          };
+
+                          SharedPrefUser().saveUser(user);
                           return GestureDetector(
                             onTap: () {
-                              log([index].toString() + "   test");
-                              index == 0 || data[index]["is_show"] == true
-                                  ? Navigator.of(context)
-                                      .push(MaterialPageRoute(
-                                          builder: (ctx) => LessonDetail(
-                                                index: index,
-                                                description: data[index]
-                                                    ["descripstion_lessons"],
-                                                title: data[index]
-                                                    ["name_lessons"],
-                                                url: data[index]["lessons_url"],
-                                              )))
-                                  : ScaffoldMessenger.of(context).showSnackBar(
+                              if (index == data.length - 1) {
+                                if (data[index]["is_show"] == true) {
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(builder: (ctx) {
+                                      return LessonDetail(
+                                        index: index,
+                                        description: data[index]
+                                            ["descripstion_lessons"],
+                                        title: data[index]["name_lessons"],
+                                        url: data[index]["lessons_url"],
+                                        lessonUpdate: data[index]
+                                            ["lessons_url"],
+                                      );
+                                    }),
+                                  );
+                                } else {
+                                  ScaffoldMessenger.of(context).showSnackBar(
                                       const SnackBar(
                                           content:
                                               Text("شاهد الدرس السابق اولا")));
+                                }
+                                log("this is a Last index ");
+                              } else {
+                                index == 0 || data[index]["is_show"] == true
+                                    ? Navigator.of(context).push(
+                                        MaterialPageRoute(builder: (ctx) {
+                                          index + 1;
+                                          FirebaseFirestore.instance
+                                              .collection('lessons')
+                                              .doc(data[index + 1]
+                                                      ["name_lessons"] +
+                                                  data[index + 1]
+                                                      ["descripstion_lessons"])
+                                              .update({
+                                            'is_show': true,
+                                          });
+                                          // FirebaseFirestore.instance
+                                          //     .collection('lessons')
+                                          //     .doc(data[index + 1]
+                                          //             ["name_lessons"] +
+                                          //         data[index + 1]
+                                          //             ["descripstion_lessons"])
+                                          //     .update({
+                                          //   'is_show': true,
+                                          // });
+                                          return LessonDetail(
+                                            index: index,
+                                            description: data[index]
+                                                ["descripstion_lessons"],
+                                            title: data[index]["name_lessons"],
+                                            url: data[index]["lessons_url"],
+                                            lessonUpdate: data[index]
+                                                ["lessons_url"],
+                                          );
+                                        }),
+                                      )
+                                    : ScaffoldMessenger.of(context)
+                                        .showSnackBar(const SnackBar(
+                                            content: Text(
+                                                "شاهد الدرس السابق اولا")));
+                              }
+
+                              //log(num.toString() + "   num");
+                              // Navigator.of(context).push(MaterialPageRoute(
+                              //     builder: (ctx) => LessonDetail(
+                              //           index: index,
+                              //           description: data[index]
+                              //               ["descripstion_lessons"],
+                              //           title: data[index]["name_lessons"],
+                              //           url: data[index]["lessons_url"],
+                              //         )));
                             },
                             child: Card(
                               elevation: 10,

@@ -67,12 +67,13 @@ class _TabScreenStudentState extends State<TabScreenStudent> {
                   actions: [
                     IconButton(
                         onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: ((context) => const Register())));
                           SharedPrefUser().logout();
                           prefs.clear();
 
                           auth.signOut();
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: ((context) => const Register())));
+                          setState(() {});
                         },
                         icon: const Icon(Icons.logout))
                   ],

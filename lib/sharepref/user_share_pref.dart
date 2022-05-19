@@ -42,48 +42,35 @@ class SharedPrefUser {
     return await _prefs.clear();
   }
 
-  // Future<Map<String, dynamic>> saveUser(Map<String, dynamic> user) async {
-  //   _prefs = await SharedPreferences.getInstance();
+  Future<Map<String, dynamic>> saveUser(Map<String, dynamic> user) async {
+    _prefs = await SharedPreferences.getInstance();
 
-  //   await _prefs.setInt('stdId', user["stdId"] ?? 0);
-  //   await _prefs.setInt('facultyNo', user["facultyNo"] ?? 0);
-  //   await _prefs.setInt('facultyBatchId', user["facultyBatchId"] ?? 0);
-  //   await _prefs.setInt('facultyProgramNo', user["facultyProgramNo"] ?? 0);
-  //   await _prefs.setInt('facultyProgramSpecializationNo',
-  //       user["facultyProgramSpecializationNo"] ?? 0);
-  //   await _prefs.setInt('facultySemesterId', user["facultySemesterId"] ?? 0);
-  //   await _prefs.setString('studentIndexNo', user["studentIndexNo"] ?? '');
-  //   await _prefs.setString('firstName', user["firstName"] ?? '');
-  //   await _prefs.setString('middleName', user["middleName"] ?? '');
-  //   // await _prefs.setString('image', user["photoImage"] ?? '');
+    await _prefs.setBool('one', user[false] ?? false);
+    await _prefs.setBool('two', user[false] ?? false);
+    await _prefs.setBool('three', user[false] ?? false);
+    await _prefs.setBool('hore', user[false] ?? false);
+    await _prefs.setBool('hife', user[false] ?? false);
 
-  //   return user;
-  // }
+    return user;
+  }
 
-  // Future<Map<String, dynamic>> getUserData() async {
-  //   Map<String, dynamic> user = {};
-  //   _prefs = await SharedPreferences.getInstance();
-  //   final stdId = await _prefs.getInt('stdId');
-  //   final facultyNo = await _prefs.getInt('facultyNo');
-  //   final facultyBatchNo = await _prefs.getInt('facultyBatchId');
-  //   final facultyProgramNo = await _prefs.getInt('facultyProgramNo');
-  //   final facultyProgramSpecializationNo =
-  //       await _prefs.getInt('facultyProgramSpecializationNo');
-  //   final facultySemesterId = await _prefs.getInt('facultySemesterNo');
-  //   final studentIndexNo = await _prefs.getInt('studentIndexNo');
-  //   final firstName = await _prefs.getString('firstName');
+  Future<Map<String, dynamic>> getUserData() async {
+    Map<String, dynamic> user = {};
+    _prefs = await SharedPreferences.getInstance();
+    final one = _prefs.getBool('one');
+    final two = _prefs.getBool('two');
+    final three = _prefs.getBool('three');
+    final hore = _prefs.getBool('hore');
+    final hife = _prefs.getBool('hife');
 
-  //   user = {
-  //     'stdId': stdId,
-  //     'facultyNo': facultyNo,
-  //     'facultyBatchId': facultyBatchNo,
-  //     'facultyProgramNo': facultyProgramNo,
-  //     'facultyProgramSpecializationNo': facultyProgramSpecializationNo,
-  //     'facultySemesterId': facultySemesterId,
-  //     'studentIndexNo': studentIndexNo,
-  //     'firstName': firstName,
-  //   };
+    user = {
+      'one': one,
+      'two': two,
+      'three': three,
+      'hore': hore,
+      'hife': hife,
+    };
 
-  //   return user;
-  // }
+    return user;
+  }
 }

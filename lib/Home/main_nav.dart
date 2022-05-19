@@ -76,6 +76,7 @@ class _MainNavState extends State<MainNav> {
                             prefs.clear();
 
                             auth.signOut();
+                            setState(() {});
                           },
                           icon: const Icon(Icons.logout))
                     ],

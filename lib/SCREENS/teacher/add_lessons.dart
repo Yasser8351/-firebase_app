@@ -66,8 +66,8 @@ class _AddLessonsState extends State<AddLessons> {
             //   _videoNameController.text,
             // )
             .collection("lessons")
-            .doc("2")
-            // .doc(_videoNameController.text)
+            //.doc("2")
+            .doc(_videoNameController.text + _descripstionController.text)
             .set(
           {
             "name_lessons": _videoNameController.text,
@@ -111,117 +111,120 @@ class _AddLessonsState extends State<AddLessons> {
       ),
       body: isLoading
           ? const Center(child: CircularProgressIndicator())
-          : Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Form(
-                  key: _form,
-                  child: Padding(
-                    padding: const EdgeInsets.all(22.0),
-                    child: SizedBox(
-                      height: 180,
-                      child: ListView(
-                        physics: const NeverScrollableScrollPhysics(),
-                        children: [
-                          Container(
-                            color: Colors.white,
-                            child: TextFormField(
-                              textAlign: TextAlign.left,
-                              controller: _videoNameController,
-                              cursorColor: Colors.white,
-                              decoration: InputDecoration(
-                                  labelText: 'title lessons',
-                                  focusColor: Colors.white,
-                                  hoverColor: Colors.white,
-                                  fillColor: Colors.white,
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(4),
-                                  )),
-                              textInputAction: TextInputAction.next,
-                              keyboardType: TextInputType.text,
-                              onFieldSubmitted: (_) {
-                                FocusScope.of(context)
-                                    .requestFocus(_passwordFocus);
-                              },
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'يجب ادخال عنوان الدرس ';
-                                }
-                                return null;
-                              },
-                              onSaved: (value) {},
+          : SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Form(
+                    key: _form,
+                    child: Padding(
+                      padding: const EdgeInsets.all(22.0),
+                      child: SizedBox(
+                        height: 180,
+                        child: ListView(
+                          physics: const NeverScrollableScrollPhysics(),
+                          children: [
+                            Container(
+                              color: Colors.white,
+                              child: TextFormField(
+                                textAlign: TextAlign.left,
+                                controller: _videoNameController,
+                                cursorColor: Colors.white,
+                                decoration: InputDecoration(
+                                    labelText: 'title lessons',
+                                    focusColor: Colors.white,
+                                    hoverColor: Colors.white,
+                                    fillColor: Colors.white,
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(4),
+                                    )),
+                                textInputAction: TextInputAction.next,
+                                keyboardType: TextInputType.text,
+                                onFieldSubmitted: (_) {
+                                  FocusScope.of(context)
+                                      .requestFocus(_passwordFocus);
+                                },
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'يجب ادخال عنوان الدرس ';
+                                  }
+                                  return null;
+                                },
+                                onSaved: (value) {},
+                              ),
                             ),
-                          ),
-                          const SizedBox(height: 10),
-                          Container(
-                            color: Colors.white,
-                            child: TextFormField(
-                              textAlign: TextAlign.left,
-                              controller: _descripstionController,
-                              decoration: InputDecoration(
-                                  labelText: 'decoration lessons',
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(4),
-                                  )),
-                              textInputAction: TextInputAction.next,
-                              keyboardType: TextInputType.text,
-                              onFieldSubmitted: (_) {
-                                FocusScope.of(context)
-                                    .requestFocus(_passwordFocus);
-                              },
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'يجب ادخال الوصف';
-                                }
-                                return null;
-                              },
-                              onSaved: (value) {},
+                            const SizedBox(height: 10),
+                            Container(
+                              color: Colors.white,
+                              child: TextFormField(
+                                textAlign: TextAlign.left,
+                                controller: _descripstionController,
+                                decoration: InputDecoration(
+                                    labelText: 'decoration lessons',
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(4),
+                                    )),
+                                textInputAction: TextInputAction.next,
+                                keyboardType: TextInputType.text,
+                                onFieldSubmitted: (_) {
+                                  FocusScope.of(context)
+                                      .requestFocus(_passwordFocus);
+                                },
+                                validator: (value) {
+                                  if (value!.isEmpty) {
+                                    return 'يجب ادخال الوصف';
+                                  }
+                                  return null;
+                                },
+                                onSaved: (value) {},
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-                // const SizedBox(height: 30),
-                pickedFile != null
-                    ? GestureDetector(
-                        onTap: () {
-                          selectFile();
-                        },
-                        child: Container(
-                          child: Center(
-                              child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: const [
-                              Icon(
-                                Icons.done,
-                                color: Colors.green,
-                                size: 45,
-                              ),
-                              SizedBox(width: 5),
-                              Text("تم ارفاق الملف بنجاح"),
-                            ],
-                          )),
-                          color: Colors.grey,
+                  // const SizedBox(height: 30),
+                  pickedFile != null
+                      ? GestureDetector(
+                          onTap: () {
+                            selectFile();
+                          },
+                          child: Container(
+                            child: Center(
+                                child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: const [
+                                Icon(
+                                  Icons.done,
+                                  color: Colors.green,
+                                  size: 45,
+                                ),
+                                SizedBox(width: 5),
+                                Text("تم ارفاق الملف بنجاح"),
+                              ],
+                            )),
+                            color: Colors.grey,
+                            height: 200,
+                            width: double.infinity,
+                          ),
+                        )
+                      : const SizedBox(
                           height: 200,
                           width: double.infinity,
+                          child: Image(
+                            image: AssetImage('assets/placeholder.png'),
+                            fit: BoxFit.fitHeight,
+                          ),
                         ),
-                      )
-                    : const SizedBox(
-                        height: 200,
-                        width: double.infinity,
-                        child: Image(
-                          image: AssetImage('assets/placeholder.png'),
-                          fit: BoxFit.fitHeight,
-                        ),
-                      ),
-                ElevatedButton(
-                    onPressed: selectFile, child: const Text("اختار الفيديو")),
-                ElevatedButton(
-                    onPressed: uplaodFile, child: const Text("انشاء الكورس")),
-              ],
+                  ElevatedButton(
+                      onPressed: selectFile,
+                      child: const Text("اختار الفيديو")),
+                  ElevatedButton(
+                      onPressed: uplaodFile, child: const Text("انشاء الكورس")),
+                ],
+              ),
             ),
     );
   }

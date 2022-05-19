@@ -1,6 +1,5 @@
 import 'dart:developer';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../../video.dart';
@@ -11,12 +10,14 @@ class LessonDetail extends StatefulWidget {
   final description;
   final url;
   final int index;
+  final lessonUpdate;
   const LessonDetail(
       {Key? key,
       this.title,
       this.description,
       required this.url,
-      required this.index})
+      required this.index,
+      this.lessonUpdate})
       : super(key: key);
 
   @override
@@ -28,10 +29,12 @@ class _LessonDetailState extends State<LessonDetail> {
   void initState() {
     super.initState();
     log(widget.index.toString());
-    var d = widget.index + 1;
-    FirebaseFirestore.instance.collection('lessons').doc(d.toString()).update({
-      'is_show': true,
-    });
+    // FirebaseFirestore.instance
+    //     .collection('lessons')
+    //     .doc("fffg2022-05-19 18:52:31.660232")
+    //     .update({
+    //   'is_show': true,
+    // });
   }
 
   @override
