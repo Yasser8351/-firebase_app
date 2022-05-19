@@ -1,25 +1,37 @@
+import 'dart:developer';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import '../../video.dart';
 
-class CourseDetail extends StatefulWidget {
-  static const routeName = '/courseDetail';
+class LessonDetail extends StatefulWidget {
+  static const routeName = '/lessonDetail';
   final title;
   final description;
   final url;
-
-  const CourseDetail(
-      {Key? key, this.title, this.description, required this.url})
+  final int index;
+  const LessonDetail(
+      {Key? key,
+      this.title,
+      this.description,
+      required this.url,
+      required this.index})
       : super(key: key);
 
   @override
-  State<CourseDetail> createState() => _CourseDetailState();
+  State<LessonDetail> createState() => _LessonDetailState();
 }
 
-class _CourseDetailState extends State<CourseDetail> {
+class _LessonDetailState extends State<LessonDetail> {
   @override
   void initState() {
     super.initState();
+    log(widget.index.toString());
+    var d = widget.index + 1;
+    FirebaseFirestore.instance.collection('lessons').doc(d.toString()).update({
+      'is_show': true,
+    });
   }
 
   @override
@@ -61,15 +73,6 @@ class _CourseDetailState extends State<CourseDetail> {
                         fontSize: 25, fontWeight: FontWeight.bold),
                   ),
                 ),
-                // Container(
-                //   margin: const EdgeInsets.symmetric(vertical: 5),
-                //   child: const Text(
-                //     'Taught by Yasser',
-                //     style: TextStyle(
-                //       fontSize: 22,
-                //     ),
-                //   ),
-                // ),
                 Container(
                     margin: const EdgeInsets.symmetric(vertical: 5),
                     child: const Text(

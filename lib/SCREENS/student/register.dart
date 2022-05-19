@@ -218,6 +218,7 @@ class _RegisterState extends State<Register> {
         "uid": auth.currentUser!.uid,
         "timeCreated": DateTime.now(),
         "typeAccount": typeAccount == 0 ? "student" : "teacher",
+        "Enrolied_course": 0,
       });
       setState(() {
         isLoading = false;

@@ -70,12 +70,12 @@ class _MainNavState extends State<MainNav> {
                     actions: [
                       IconButton(
                           onPressed: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: ((context) => const Register())));
                             SharedPrefUser().logout();
                             prefs.clear();
 
                             auth.signOut();
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: ((context) => const Register())));
                           },
                           icon: const Icon(Icons.logout))
                     ],

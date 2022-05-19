@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'course_detail.dart';
+import '../../sharepref/user_share_pref.dart';
+import '../teacher/course_detail.dart';
 
 class AllCourses extends StatefulWidget {
   static const routeName = '/AllCourses';
@@ -18,7 +19,9 @@ class AllCourses extends StatefulWidget {
 class _AllCoursesState extends State<AllCourses> {
   bool isLoading = false;
   final auth = FirebaseAuth.instance;
-  int _data = 0;
+  final int _data = 0;
+  int numberEnrollCourses = 0;
+  late final data;
   @override
   void initState() {
     super.initState();
@@ -26,123 +29,11 @@ class _AllCoursesState extends State<AllCourses> {
 
   @override
   Widget build(BuildContext context) {
-    log(_data.toString());
+    log("numberEnrollCourses  = " + numberEnrollCourses.toString());
 
     return Stack(
       children: [
-        buildMyCourse(),
-        SizedBox(
-          height: double.infinity,
-          child: SizedBox(
-            height: double.infinity,
-            child: StreamBuilder(
-              stream:
-                  FirebaseFirestore.instance.collection("videos").snapshots(),
-              builder: (ctx, AsyncSnapshot<QuerySnapshot> snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(child: CircularProgressIndicator());
-                } else {
-                  final data = snapshot.data!.docs;
-                  return Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: SizedBox(
-                      height: double.infinity,
-                      child: ListView.builder(
-                        itemCount: data.length,
-                        itemBuilder: (ctx, index) {
-                          return Card(
-                            elevation: 10,
-                            child: Column(children: [
-                              SizedBox(
-                                  width: double.infinity,
-                                  height: 200,
-                                  child: Image.asset("assets/download.jpg")),
-                              Text(
-                                //"title",
-                                data[index]["name_video"],
-                                style: const TextStyle(
-                                    color: Colors.black, fontSize: 18),
-                              ),
-                              const SizedBox(height: 10),
-                              Text(
-                                //"descripstion_video",
-                                data[index]["descripstion_video"],
-                                style: const TextStyle(
-                                    color: Colors.black, fontSize: 18),
-                              ),
-                              const SizedBox(height: 10),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  GestureDetector(
-                                    onTap: () {
-                                      Navigator.of(context)
-                                          .push(MaterialPageRoute(
-                                              builder: (ctx) => CourseDetail(
-                                                    description: data[index]
-                                                        ["descripstion_video"],
-                                                    title: data[index]
-                                                        ["name_video"],
-                                                    // title: data[index]["video_url"],
-                                                    url: data[index]
-                                                        ["video_url"],
-                                                  )));
-                                    },
-                                    child: const Card(
-                                      child: Padding(
-                                        padding: EdgeInsets.all(12.0),
-                                        child: Text(
-                                          "view course",
-                                          //data[index]["descripstion_video"],
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 14),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(width: 15),
-                                  Builder(builder: (context) {
-                                    return GestureDetector(
-                                      onTap: () {
-                                        enrollCourse(
-                                            auth.currentUser!.uid,
-                                            data[index]["descripstion_video"]
-                                                .toString(),
-                                            data[index]["name_video"]
-                                                .toString(),
-                                            data[index]["video_url"]
-                                                .toString());
-                                      },
-                                      child: const Card(
-                                        child: Padding(
-                                          padding: EdgeInsets.all(12.0),
-                                          child: Text(
-                                            "Enroll",
-                                            //data[index]["descripstion_video"],
-                                            style: TextStyle(
-                                                color: Color.fromARGB(
-                                                    255, 5, 46, 122),
-                                                fontSize: 14),
-                                          ),
-                                        ),
-                                      ),
-                                    );
-                                  }),
-                                ],
-                              ),
-                              const SizedBox(height: 20),
-                            ]),
-                          );
-                        },
-                      ),
-                    ),
-                  );
-                }
-              },
-            ),
-          ),
-        ),
+        getMyEnrollCourses(),
       ],
     );
   }
@@ -158,6 +49,12 @@ class _AllCoursesState extends State<AllCourses> {
         isLoading = true;
       });
 
+      int d = await SharedPrefUser().getNumberEnrollCourses();
+      log("s $d");
+      int s = await SharedPrefUser().saveId(numberEnrollCourses + 1);
+      log("s $s");
+
+      //  .then((value) => {log("value $value"), numberEnrollCourses = value});
       FirebaseFirestore.instance
           .collection("Enroll_Courses")
           .doc(auth.currentUser!.uid)
@@ -192,40 +89,41 @@ class _AllCoursesState extends State<AllCourses> {
     }
   }
 
-  buildMyCourse() {
-    return SizedBox(
-      height: double.infinity,
-      child: SizedBox(
-        height: double.infinity,
-        child: StreamBuilder(
-          stream: getData(),
-          builder: (ctx, AsyncSnapshot<QuerySnapshot> snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: Text(""));
-            } else {
-              final data = snapshot.data!.docs;
-              _data = data.length;
-              if (data.isEmpty) {
-                return const Center(child: Text(""));
-              }
-              return Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: SizedBox(
-                  height: double.infinity,
-                  child: ListView.builder(
-                    itemCount: data.length,
-                    itemBuilder: (ctx, index) {
-                      return const Text("");
-                    },
-                  ),
-                ),
-              );
-            }
-          },
-        ),
-      ),
-    );
-  }
+  // buildMyCourse() {
+  //   return SizedBox(
+  //     height: double.infinity,
+  //     child: SizedBox(
+  //       height: double.infinity,
+  //       child: StreamBuilder(
+  //         stream: getData(),
+  //         builder: (ctx, AsyncSnapshot<QuerySnapshot> snapshot) {
+  //           if (snapshot.connectionState == ConnectionState.waiting) {
+  //             return const Center(child: Text(""));
+  //           } else {
+  //             final data = snapshot.data!.docs;
+
+  //             _data = data.length;
+  //             if (data.isEmpty) {
+  //               return const Center(child: Text(""));
+  //             }
+  //             return Padding(
+  //               padding: const EdgeInsets.all(15.0),
+  //               child: SizedBox(
+  //                 height: double.infinity,
+  //                 child: ListView.builder(
+  //                   itemCount: data.length,
+  //                   itemBuilder: (ctx, index) {
+  //                     return const Text("");
+  //                   },
+  //                 ),
+  //               ),
+  //             );
+  //           }
+  //         },
+  //       ),
+  //     ),
+  //   );
+  // }
 
   Stream<QuerySnapshot> getData() {
     return FirebaseFirestore.instance
@@ -234,5 +132,148 @@ class _AllCoursesState extends State<AllCourses> {
         .collection("MyEnrollCourses")
         .where("student_id", isEqualTo: auth.currentUser!.email)
         .snapshots();
+  }
+
+  getMyEnrollCourses() {
+    return SizedBox(
+      height: double.infinity,
+      child: StreamBuilder(
+        stream: FirebaseFirestore.instance
+            .collection("Enroll_Courses")
+            .doc(auth.currentUser!.uid)
+            .collection("MyEnrollCourses")
+            .where("student_id", isEqualTo: auth.currentUser!.email)
+            .snapshots(),
+        builder: (ctx, AsyncSnapshot<QuerySnapshot> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Text("");
+          } else {
+            final data = snapshot.data!.docs;
+            numberEnrollCourses = data.length;
+
+            return SizedBox(
+              height: double.infinity,
+              child: SizedBox(
+                height: double.infinity,
+                child: StreamBuilder(
+                  stream: FirebaseFirestore.instance
+                      .collection("videos")
+                      .snapshots(),
+                  builder: (ctx, AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(child: CircularProgressIndicator());
+                    } else {
+                      final data = snapshot.data!.docs;
+                      return Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: SizedBox(
+                          height: double.infinity,
+                          child: ListView.builder(
+                            itemCount: data.length,
+                            itemBuilder: (ctx, index) {
+                              return Card(
+                                elevation: 10,
+                                child: Column(children: [
+                                  SizedBox(
+                                      width: double.infinity,
+                                      height: 200,
+                                      child:
+                                          Image.asset("assets/download.jpg")),
+                                  Text(
+                                    //"title",
+                                    data[index]["name_video"],
+                                    style: const TextStyle(
+                                        color: Colors.black, fontSize: 18),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Text(
+                                    //"descripstion_video",
+                                    data[index]["descripstion_video"],
+                                    style: const TextStyle(
+                                        color: Colors.black, fontSize: 18),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      GestureDetector(
+                                        onTap: () {
+                                          Navigator.of(context).push(
+                                            MaterialPageRoute(
+                                              builder: (ctx) => CourseDetail(
+                                                description: data[index]
+                                                    ["descripstion_video"],
+                                                title: data[index]
+                                                    ["name_video"],
+                                                // title: data[index]["video_url"],
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                        child: const Card(
+                                          child: Padding(
+                                            padding: EdgeInsets.all(12.0),
+                                            child: Text(
+                                              "view course",
+                                              //data[index]["descripstion_video"],
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 14),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      const SizedBox(width: 15),
+                                      Builder(builder: (context) {
+                                        return GestureDetector(
+                                          onTap: () {
+                                            numberEnrollCourses == 5
+                                                ? ScaffoldMessenger.of(context)
+                                                    .showSnackBar(const SnackBar(
+                                                        content: Text(
+                                                            "لايمكن الاشتراك في اكثر من 5 كورسات")))
+                                                : enrollCourse(
+                                                    auth.currentUser!.uid,
+                                                    data[index][
+                                                            "descripstion_video"]
+                                                        .toString(),
+                                                    data[index]["name_video"]
+                                                        .toString(),
+                                                    data[index]["video_url"]
+                                                        .toString());
+                                          },
+                                          child: const Card(
+                                            child: Padding(
+                                              padding: EdgeInsets.all(12.0),
+                                              child: Text(
+                                                "Enroll",
+                                                //data[index]["descripstion_video"],
+                                                style: TextStyle(
+                                                    color: Color.fromARGB(
+                                                        255, 5, 46, 122),
+                                                    fontSize: 14),
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      }),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 20),
+                                ]),
+                              );
+                            },
+                          ),
+                        ),
+                      );
+                    }
+                  },
+                ),
+              ),
+            );
+          }
+        },
+      ),
+    );
   }
 }

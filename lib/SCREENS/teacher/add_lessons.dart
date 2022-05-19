@@ -66,16 +66,16 @@ class _AddLessonsState extends State<AddLessons> {
             //   _videoNameController.text,
             // )
             .collection("lessons")
-            .doc(DateTime.now().toString())
-            // .collection("video_details")
-            // .doc(DateTime.now().timeZoneName)
+            .doc("2")
+            // .doc(_videoNameController.text)
             .set(
           {
             "name_lessons": _videoNameController.text,
             "descripstion_lessons": _descripstionController.text,
             "lessons_url": value.toString(),
             "time": DateTime.now(),
-            "video_id": widget.idCourse
+            "video_id": widget.idCourse,
+            "is_show": false
           },
         );
         setState(() {

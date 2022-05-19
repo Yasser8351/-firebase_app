@@ -20,9 +20,20 @@ class SharedPrefUser {
     return id;
   }
 
+  Future<int> saveNumberEnrollCourses(int num) async {
+    _prefs = await SharedPreferences.getInstance();
+    await _prefs.setInt('num', num);
+    return num;
+  }
+
   Future<int> getID() async {
     _prefs = await SharedPreferences.getInstance();
     return (_prefs.getInt('id') ?? -1);
+  }
+
+  Future<int> getNumberEnrollCourses() async {
+    _prefs = await SharedPreferences.getInstance();
+    return (_prefs.getInt('num') ?? 0);
   }
 
   Future<bool> logout() async {

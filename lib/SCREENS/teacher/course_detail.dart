@@ -4,6 +4,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
+import '../student/lesson_detail.dart';
+
 class CourseDetail extends StatefulWidget {
   static const routeName = '/courseDetail';
   final title;
@@ -111,34 +113,55 @@ class _CourseDetailState extends State<CourseDetail> {
                           var nameLessons = data[index]["name_lessons"];
                           var descripstionLessons =
                               data[index]["descripstion_lessons"];
-                          return Card(
-                            elevation: 10,
-                            child: Padding(
-                              padding: const EdgeInsets.all(13.0),
-                              child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "lessons :${i.toString()}",
-                                      style: const TextStyle(
-                                          color: Colors.black, fontSize: 18),
-                                    ),
-                                    const SizedBox(height: 10),
+                          return GestureDetector(
+                            onTap: () {
+                              log([index].toString() + "   test");
+                              index == 0 || data[index]["is_show"] == true
+                                  ? Navigator.of(context)
+                                      .push(MaterialPageRoute(
+                                          builder: (ctx) => LessonDetail(
+                                                index: index,
+                                                description: data[index]
+                                                    ["descripstion_lessons"],
+                                                title: data[index]
+                                                    ["name_lessons"],
+                                                url: data[index]["lessons_url"],
+                                              )))
+                                  : ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                          content:
+                                              Text("شاهد الدرس السابق اولا")));
+                            },
+                            child: Card(
+                              elevation: 10,
+                              child: Padding(
+                                padding: const EdgeInsets.all(13.0),
+                                child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "lessons :${i.toString()}",
+                                        style: const TextStyle(
+                                            color: Colors.black, fontSize: 18),
+                                      ),
+                                      const SizedBox(height: 10),
 
-                                    Text(
-                                      "lessons name :$nameLessons", //
-                                      style: const TextStyle(
-                                          color: Colors.black, fontSize: 18),
-                                    ),
-                                    const SizedBox(height: 10),
-                                    Text(
-                                      "descripstion :$descripstionLessons",
-                                      style: const TextStyle(
-                                          color: Colors.black, fontSize: 18),
-                                    ),
-                                    // const SizedBox(height: 20),
-                                  ]),
+                                      Text(
+                                        "lessons name :$nameLessons", //
+                                        style: const TextStyle(
+                                            color: Colors.black, fontSize: 18),
+                                      ),
+                                      const SizedBox(height: 10),
+                                      Text(
+                                        "descripstion :$descripstionLessons",
+                                        style: const TextStyle(
+                                            color: Colors.black, fontSize: 18),
+                                      ),
+                                      // const SizedBox(height: 20),
+                                    ]),
+                              ),
                             ),
                           );
                         },
