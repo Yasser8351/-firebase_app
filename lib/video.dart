@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
+//صفحة تشغيل الفيديوهات يمكنك تشغيل الفيديو وايقافة
+
 class VideoDemo extends StatefulWidget {
   const VideoDemo({required this.url}) : super();
 
@@ -19,9 +21,7 @@ class VideoDemoState extends State<VideoDemo> {
   @override
   void initState() {
     _controller = VideoPlayerController.network(widget.url);
-    // _controller = VideoPlayerController.network(
-    //     "https://www.youtube.com/watch?v=X6BAKzFGYb8");
-    // _controller = VideoPlayerController.asset("assets/videoplayback.mp4");
+
     _initializeVideoPlayerFuture = _controller.initialize();
     _controller.setLooping(true);
     _controller.setVolume(1.0);

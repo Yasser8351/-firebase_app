@@ -1,5 +1,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
+//الكلاس الخاص بحفظ بيانات المستخدم في التطبيق
+
 class SharedPrefUser {
   late SharedPreferences _prefs;
   String? image;

@@ -8,6 +8,8 @@ import 'package:easy_splash_screen/easy_splash_screen.dart';
 import '../sharepref/user_share_pref.dart';
 import 'student/register.dart';
 
+//صفحة سبلاش اسكرين تخر لمدة ثانيتين ثم تنتقل الي الصفحة الرئيسية
+
 class SplashScreenPage extends StatefulWidget {
   @override
   _SplashScreenPageState createState() => _SplashScreenPageState();

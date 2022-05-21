@@ -7,6 +7,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 
+//صفحة اضافة دروس
+
 class AddLessons extends StatefulWidget {
   const AddLessons({Key? key, required this.idCourse}) : super(key: key);
   static const routeName = "add_les";
@@ -57,16 +59,7 @@ class _AddLessonsState extends State<AddLessons> {
 
       final urlDownload = snapshot.ref.getDownloadURL().then((value) {
         FirebaseFirestore.instance
-            // .collection("lessons")
-            // .doc(auth.currentUser!.uid)
-            // .collection(
-            //   _videoNameController.text,
-            // )
-            // .doc(
-            //   _videoNameController.text,
-            // )
             .collection("lessons")
-            //.doc("2")
             .doc(_videoNameController.text + _descripstionController.text)
             .set(
           {
@@ -97,10 +90,6 @@ class _AddLessonsState extends State<AddLessons> {
       ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("حدث خطأ اثناء رفع الدرس")));
     }
-
-    /*
-    on FirebaseAuthException catch (error)
-    */
   }
 
   @override

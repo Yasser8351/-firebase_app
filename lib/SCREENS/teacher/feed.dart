@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 
 import 'add_lessons.dart';
 
+//Dashboard صفحة داش بورد الخاصة بالاستاذ
 class Dashboard extends StatefulWidget {
-  //Dashboard
   @override
   static const routeName = '/Dashboard';
 
