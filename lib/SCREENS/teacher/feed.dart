@@ -2,9 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_app/SCREENS/teacher/course_detail.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '/providers/courses.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import 'add_lessons.dart';
 
@@ -21,41 +19,15 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   final auth = FirebaseAuth.instance;
   @override
-  bool _isLoading = false;
+  final bool _isLoading = false;
   @override
   void initState() {
     super.initState();
-    print('init called');
-    WidgetsBinding.instance!.addPostFrameCallback((_) {
-      _fetchCourse();
-    });
   }
 
   @override
   void dispose() {
     super.dispose();
-  }
-
-  _fetchCourse() async {
-    try {
-      if (!mounted) {
-        print('not mounted');
-        return;
-      }
-      final course = Provider.of<CourseProvider>(context, listen: false);
-      final requestMade = course.requestMade;
-      if (requestMade == false) {
-        setState(() {
-          _isLoading = true;
-        });
-        await Provider.of<CourseProvider>(context, listen: false).fetchCourse();
-        setState(() {
-          _isLoading = false;
-        });
-      }
-    } catch (e) {
-      print(e);
-    }
   }
 
   @override

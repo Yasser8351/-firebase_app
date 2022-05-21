@@ -274,14 +274,6 @@ class _CourseDetailState extends State<CourseDetail> {
   Widget build(BuildContext context) {
     log(widget.title);
     return Scaffold(
-        persistentFooterButtons: const [
-          // Container(
-          //   width: double.infinity,
-          //   color: Colors.black,
-          //   height: 50,
-          //   child: Image.asset("assets/logo.png"),
-          // )
-        ],
         appBar: AppBar(
           title: const Text(""),
           backgroundColor: Theme.of(context).primaryColor,

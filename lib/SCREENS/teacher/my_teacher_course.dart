@@ -2,9 +2,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '/providers/courses.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class MyTeacherCourse extends StatefulWidget {
   @override
@@ -26,8 +24,6 @@ class _MyTeacherCourseState extends State<MyTeacherCourse> {
 
   @override
   Widget build(BuildContext context) {
-    final course = Provider.of<CourseProvider>(context);
-    final courseFeed = course.enrolledCourse;
     return Scaffold(
       body: SizedBox(
         height: double.infinity,
