@@ -55,7 +55,7 @@ class _SplashScreenPageState extends State<SplashScreenPage>
             'assets/logo.png',
             fit: BoxFit.fill,
           ),
-          logoSize: 220,
+          logoSize: 120,
           backgroundColor: Colors.white,
           loaderColor: Colors.white,
         ),
