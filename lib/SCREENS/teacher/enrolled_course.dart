@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+//صفحة عرض الطلاب الذي قاموا بالاشتراك في الكورس
 
 class EnrolledCourse extends StatefulWidget {
   @override
@@ -65,7 +66,6 @@ class _enrolledCourseState extends State<EnrolledCourse> {
                                 const SizedBox(height: 10),
                                 Text(
                                   "Enroll time : ${date.year}/${date.month}/${date.day}",
-                                  // "Enroll time : ${EnrollTime.year}/${EnrollTime.month}/${EnrollTime.day}",
                                   style: const TextStyle(
                                       color: Colors.black, fontSize: 18),
                                 ),
@@ -105,24 +105,5 @@ class _enrolledCourseState extends State<EnrolledCourse> {
         ),
       ),
     );
-    // return courseFeed!.isNotEmpty
-    //     ? Container(
-    //         height: double.infinity,
-    //         width: double.infinity,
-    //         color: Colors.white,
-    //         child: ListView.builder(
-    //             itemCount: courseFeed.length,
-    //             itemBuilder: (BuildContext context, i) {
-    //               return (FeedCard(
-    //                 courseFeed[i],
-    //               ));
-    //             }),
-    //       )
-    //     : Center(
-    //         child: Text(
-    //           "Nothing to show",
-    //           style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-    //         ),
-    //       );
   }
 }
